@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Every Road Led Me to You ❤️ | For Poorvaja (Thenu)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            midnight: '#080d1e',
+            nightsky: '#0e152e',
+            deepnavy: '#161e3d',
+            softblush: '#f9e8e6',
+            rosy: '#f4acb7',
+            crimson: '#9d0208',
+            deepwine: '#6a040f',
+            parchment: '#fcf8f0',
+            parchmentDark: '#f3ebd9',
+            warmgold: '#e0a96d',
+            goldglow: '#f3c68f',
+            sunset: '#ff7a59',
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+            handwriting: ['"Dancing Script"', 'cursive'],
+            script: ['"Caveat"', 'cursive'],
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': {transform: 'translateY(0px)'},
+              '50%': {transform: 'translateY(-10px)'},
+            },
+            pulseGlow: {
+              '0%, 100%': {opacity: '0.4', transform: 'scale(1)'},
+              '50%': {opacity: '0.9', transform: 'scale(1.08)'},
+            },
+            shimmer: {
+              '0%': {backgroundPosition: '-200% 0'},
+              '100%': {backgroundPosition: '200% 0'},
+            }
+          },
+          animation: {
+            float: 'float 4s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0b1021;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #392842;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #e0a96d;
+    }
+
+    /* Glow utility */
+    .glow-gold {
+      filter: drop-shadow(0 0 12px rgba(243, 198, 143, 0.45));
+    }
+
+    .glow-heart {
+      filter: drop-shadow(0 0 8px rgba(244, 172, 183, 0.6));
+    }
+
+    .polaroid-shadow {
+      box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .parchment-texture {
+      background-color: #fdfaf3;
+      background-image: radial-gradient(#d3c5ad 0.75px, transparent 0.75px);
+      background-size: 16px 16px;
+    }
+
+    /* Wax seal styles */
+    .wax-seal {
+      background: radial-gradient(circle at 35% 35%, #b70914, #7a0007 80%, #460004);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -3px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Envelope 3D flap */
+    .envelope-flap {
+      clip-path: polygon(0 0, 100% 0, 50% 55%);
+      transform-origin: top;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .envelope-flap.opened {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    /* Stop pop-up */
+    .modal-pop {
+      animation: popIn .28s ease-out;
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(.92) translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* Candle burst (Thenu section) */
+    .candle.balloon .flame-wrap,
+    .candle.balloon .wick {
+      display: none;
+    }
+
+    \n .candle.balloon .stick {
+      position: relative;
+    }
+
+    \n .candle.balloon .stick:after {
+      content: "";
+      position: absolute;
+      bottom: -7px;
+      left: 50%;
+      width: 1px;
+      height: 15px;
+      background: #f8d9e5;
+    }
+
+    \n .candle.balloon.burst .stick {
+      animation: balloonPop .35s ease-out forwards;
+    }
+
+    \n @keyframes balloonPop {
+      0% {
+        transform: scale(1)
+      }
+
+      30% {
+        transform: scale(1.35)
+      }
+
+      100% {
+        transform: scale(0);
+        opacity: 0
+      }
+    }
+
+    \n .candle {
+      cursor: pointer;
+      padding: 4px 3px 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .candle .candle-label {
+      font-size: 18px;
+      line-height: 1;
+      margin-bottom: 4px;
+      transition: transform .2s;
+    }
+
+    .candle:hover .candle-label {
+      transform: translateY(-3px);
+    }
+
+    .candle .flame-wrap {
+      position: relative;
+      display: block;
+      width: 16px;
+      height: 24px;
+    }
+
+    .candle .flame {
+      position: absolute;
+      bottom: 0;
+      left: calc(50% - 5.5px);
+      width: 11px;
+      height: 20px;
+      border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+      background: radial-gradient(ellipse at 50% 75%, #fff8d6 0%, #ffd45e 35%, #ff9a3c 70%, rgba(255, 120, 40, 0) 100%);
+      box-shadow: 0 0 16px 5px rgba(255, 190, 90, .55);
+      transform-origin: 50% 100%;
+      animation: flicker .22s ease-in-out infinite alternate;
+    }
+
+    @keyframes flicker {
+      from {
+        transform: scale(1, 1) rotate(-2deg);
+      }
+
+      to {
+        transform: scale(.9, 1.1) rotate(2.5deg);
+      }
+    }
+
+    .candle .smoke {
+      position: absolute;
+      bottom: 4px;
+      left: calc(50% - 3px);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(225, 225, 235, .55);
+      opacity: 0;
+    }
+
+    .candle .wick {
+      display: block;
+      width: 2px;
+      height: 6px;
+      margin: 0 auto;
+      background: #3a2a22;
+    }
+
+    .candle .stick {
+      display: block;
+      width: 12px;
+      margin: 0 auto;
+      border-radius: 3px 3px 2px 2px;
+      box-shadow: inset -2px 0 3px rgba(0, 0, 0, .18);
+    }
+
+    .candle.burst {
+      cursor: default;
+    }
+
+    .candle.burst .flame {
+      animation: flameBurst .55s ease-out forwards;
+    }
+
+    .candle.burst .smoke {
+      animation: smokeUp 1.6s ease-out .3s forwards;
+    }
+
+    .candle.burst .candle-label {
+      animation: labelBounce .7s ease-out;
+    }
+
+    @keyframes flameBurst {
+      0% {
+        transform: scale(1);
+      }
+
+      35% {
+        transform: scale(2.6, 2);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(0);
+        opacity: 0;
+      }
+    }
+
+    @keyframes smokeUp {
+      0% {
+        opacity: .6;
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-34px) scale(3.2);
+      }
+    }
+
+    @keyframes labelBounce {
+      0% {
+        transform: translateY(0);
+      }
+
+      40% {
+        transform: translateY(-14px) scale(1.5);
+      }
+
+      100% {
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .card-pop {
+      animation: cardPop 1.6s ease-out;
+    }
+
+    @keyframes cardPop {
+      0% {
+        transform: scale(1);
+      }
+
+      30% {
+        transform: scale(1.05) rotate(-1.2deg);
+        box-shadow: 0 0 0 3px rgba(243, 198, 143, .9), 0 0 40px 10px rgba(243, 198, 143, .5);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .candle .flame,
+      .candle.burst .flame,
+      .candle.burst .smoke,
+      .candle.burst .candle-label,
+      .card-pop,
+      .modal-pop {
+        animation: none;
+      }
+
+      .candle.burst .flame {
+        opacity: 0;
+      }
+    }
+
+    /* Floating particles background */
+    #stars-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+
+<body
+  class="bg-midnight text-slate-100 font-sans antialiased selection:bg-rosy/30 selection:text-softblush min-h-screen relative overflow-x-hidden">
+
+  <!-- Background Particle Stars Canvas -->
+  <canvas id="stars-canvas"></canvas>
+
+  <!-- Persistent Floating Music Player (compact: one small button, extras open on tap) -->
+  <div id="persistent-audio-player"
+    class="fixed bottom-3 right-3 z-50 flex items-center gap-1 bg-nightsky/80 backdrop-blur-md border border-rosy/25 p-1 rounded-full shadow-lg opacity-80 hover:opacity-100 transition-opacity duration-300">
+    <div id="audio-extra" class="hidden items-center gap-1.5 pl-2.5 pr-1">
+      <span class="text-[10px] text-slate-300 max-w-[110px] truncate" id="track-name-label">Enna Sona / Acoustic
+        Melody</span>
+      <label class="cursor-pointer text-slate-400 hover:text-rosy transition-colors p-1" title="Upload custom song MP3">
+        <i data-lucide="upload-cloud" class="w-3.5 h-3.5"></i>
+        <input type="file" id="custom-audio-input" accept="audio/mp3,audio/wav,audio/*" class="hidden">
+      </label>
+      <button id="audio-mute-btn" class="text-slate-400 hover:text-white transition-colors p-1" title="Mute/Unmute">
+        <i id="audio-vol-icon" data-lucide="volume-2" class="w-3.5 h-3.5"></i>
+      </button>
+      <input type="range" id="volume-range" min="0" max="1" step="0.05" value="0.75"
+        class="w-14 accent-rosy h-1 bg-white/20 rounded-lg cursor-pointer">
+    </div>
+    <button id="audio-more-btn" onclick="toggleAudioExtra()"
+      class="w-7 h-7 rounded-full text-slate-400 hover:text-white flex items-center justify-center"
+      title="Music options" aria-label="Music options">
+      <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
+    </button>
+    <button id="audio-toggle-btn"
+      class="w-9 h-9 rounded-full bg-gradient-to-tr from-crimson to-rosy text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-md"
+      title="Play / Pause our song">
+      <i id="audio-play-icon" data-lucide="play" class="w-4 h-4 ml-0.5"></i>
+    </button>
+    <!-- Hidden standard Audio element + Synthesizer Fallback -->
+    <audio id="bg-audio" loop preload="auto">
+      <source
+        src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-moment-113524.mp3"
+        type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- Global Navigation Header (Shows up once entered roadmap) -->
+  <nav id="site-nav"
+    class="hidden fixed top-0 left-0 right-0 z-40 bg-nightsky/80 backdrop-blur-md border-b border-white/10 px-4 md:px-8 py-3.5 transition-all duration-300">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="goToSection('stage-roadmap')">
+        <span class="w-7 h-7 rounded-full bg-rosy/20 flex items-center justify-center text-rosy">❤️</span>
+        <div>
+          <span class="font-handwriting text-xl md:text-2xl text-softblush font-bold">Every Road Led Me to You</span>
+          <span
+            class="hidden md:inline-block text-[11px] font-sans text-warmgold/80 ml-2 px-2 py-0.5 rounded-full border border-warmgold/30">Thenu
+            & Silk</span>
+        </div>
+      </div>
+      <!-- Quick Anchor Links -->
+      <div class="flex items-center gap-2 md:gap-4 text-xs font-medium text-slate-300">
+        <button onclick="goToSection('stage-roadmap')"
+          class="px-2.5 py-1.5 rounded-lg hover:text-white hover:bg-white/5 transition-colors flex items-center gap-1.5">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-rosy"></i>
+          <span class="hidden sm:inline">Road Map</span>
+        </button>
+        <button onclick="goToSection('stage-her-photos')"
+          class="px-2.5 py-1.5 rounded-lg hover:text-white hover:bg-white/5 transition-colors text-xs">Her
+          Photos</button>
+        <button onclick="goToSection('stage-video')"
+          class="px-2.5 py-1.5 rounded-lg hover:text-white hover:bg-white/5 transition-colors text-xs">Video</button>
+        <button onclick="goToSection('stage-letter')"
+          class="px-2.5 py-1.5 rounded-lg hover:text-white hover:bg-white/5 transition-colors flex items-center gap-1.5">
+          <i data-lucide="mail-open" class="w-3.5 h-3.5 text-pink-300"></i>
+          <span class="hidden sm:inline">Letter</span>
+        </button>
+        <button onclick="goToSection('stage-promises')"
+          class="px-2.5 py-1.5 rounded-lg hover:text-white hover:bg-white/5 transition-colors flex items-center gap-1.5">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-300"></i>
+          <span class="hidden sm:inline">Promises</span>
+        </button>
+        <button onclick="goToSection('stage-birthday')"
+          class="px-3 py-1.5 rounded-full bg-gradient-to-r from-crimson to-rosy text-white font-semibold shadow-md hover:scale-105 active:scale-95 transition-transform flex items-center gap-1">
+          <span>🎉 Finale</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================== -->
+
+  <!-- Birthday-story inspired opening: music choice + unwrap gift -->
+  <section id="stage-gift-intro"
+    class="relative z-20 min-h-screen flex items-center justify-center px-5 py-12 text-center overflow-hidden"
+    style="background:radial-gradient(circle at 50% 30%,#54304b 0%,#24172f 42%,#080d1e 100%);">
+    <div class="absolute inset-0 pointer-events-none opacity-70" aria-hidden="true">
+      <div class="absolute top-16 left-[12%] text-3xl animate-pulse">✦</div>
+      <div class="absolute top-32 right-[16%] text-2xl animate-pulse">♡</div>
+      <div class="absolute bottom-24 left-[20%] text-2xl animate-bounce">✧</div>
+      <div class="absolute bottom-32 right-[18%] text-3xl animate-pulse">✨</div>
+    </div>
+    <div class="relative max-w-2xl mx-auto">
+      <div id="music-choice"
+        class="mb-8 rounded-2xl border border-rose-200/20 bg-white/10 backdrop-blur-md p-5 shadow-2xl">
+        <p class="font-serif text-rose-100 text-lg mb-2">A birthday song for you</p>
+        <p class="text-rose-100/70 text-sm mb-4">Start this story with music?</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <button onclick="startBirthdayWithMusic()"
+            class="px-5 py-2.5 rounded-full bg-rose-200 text-rose-950 font-semibold hover:scale-105 transition">♪ Start
+            with music</button>
+          <button onclick="continueBirthdaySilent()"
+            class="px-5 py-2.5 rounded-full border border-white/30 text-white hover:bg-white/10 transition">Continue
+            without sound</button>
+        </div>
+      </div>
+      <p class="uppercase tracking-[.32em] text-xs text-amber-200 mb-4">A little surprise, made with love</p>
+      <h1 class="font-serif text-4xl sm:text-6xl text-rose-50 leading-tight mb-3">A birthday surprise<br><i
+          class="text-rose-200">wrapped just for you.</i></h1>
+      <p class="font-handwriting text-3xl text-amber-100 mb-2">From Silk, with love ❤️</p>
+      <p class="text-rose-100/70 font-serif italic mb-9">For my Poorvaja… my Thenu.</p>
+      <button id="unwrap-gift-button" onclick="unwrapBirthdayGift()" class="group mx-auto block focus:outline-none"
+        aria-label="Tap to unwrap your birthday gift">
+        <span id="intro-gift-box"
+          class="relative mx-auto flex w-44 h-40 sm:w-52 sm:h-48 items-center justify-center rounded-3xl border-2 border-amber-100/50 shadow-2xl transition duration-700 group-hover:-translate-y-2 group-hover:scale-105"
+          style="background:linear-gradient(135deg,#e7a2b2,#a93e62);box-shadow:0 20px 80px #f4acb755;">
+          <span
+            class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-7 bg-gradient-to-b from-amber-100 to-amber-300"></span>
+          <span
+            class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-7 bg-gradient-to-r from-amber-100 to-amber-300"></span>
+          <span class="absolute -top-7 left-1/2 -translate-x-1/2 text-6xl drop-shadow-lg">🎀</span>
+          <span class="relative z-10 text-5xl drop-shadow">🎁</span>
+        </span>
+        <span class="block mt-8 text-rose-100 font-serif tracking-wide animate-pulse">Tap to unwrap your gift</span>
+      </button>
+      <p id="gift-intro-note" class="hidden mt-7 text-rose-100 font-handwriting text-3xl">Every little surprise leads to
+        our story… ❤️</p>
+    </div>
+  </section>
+
+  <!-- SCREEN 1: THE SEALED ENVELOPE (LANDING)   -->
+  <!-- ========================================== -->
+  <section id="stage-envelope"
+    class="hidden relative z-10 min-h-screen flex flex-col items-center justify-center p-4 md:p-8 text-center transition-opacity duration-700">
+    <div class="max-w-2xl mx-auto flex flex-col items-center">
+
+      <!-- Poetic Subtitle -->
+      <div class="space-y-2 mb-8">
+        <p class="text-xs uppercase tracking-[0.3em] text-warmgold font-semibold animate-pulse">A Special Birthday
+          Journey</p>
+        <h1 class="font-serif italic text-2xl md:text-3xl text-slate-200">
+          “Some stories aren’t just found… they’re written by the heart.”
+        </h1>
+        <p class="font-handwriting text-3xl md:text-4xl text-rosy font-bold drop-shadow-md">
+          A special birthday surprise for my Thenu ❤️
+        </p>
+        <p class="text-sm font-serif text-slate-400 italic">— Silk</p>
+      </div>
+
+      <!-- Interactive Envelope Container -->
+      <div id="envelope-wrapper" class="relative cursor-pointer group my-4 select-none" onclick="triggerOpenEnvelope()">
+        <!-- Ambient Glow behind envelope -->
+        <div
+          class="absolute -inset-6 bg-gradient-to-r from-crimson/20 via-sunset/20 to-rosy/20 rounded-3xl blur-2xl group-hover:blur-3xl transition-all duration-500">
+        </div>
+
+        <!-- The Physical Envelope Body -->
+        <div
+          class="relative w-80 sm:w-96 h-56 bg-gradient-to-b from-parchment to-parchmentDark rounded-2xl polaroid-shadow border border-[#e8dfcf] overflow-hidden flex flex-col justify-end p-6 transition-transform duration-500 group-hover:-translate-y-1">
+
+          <!-- Inner letter (slides up when opened) -->
+          <div id="rising-letter"
+            class="absolute inset-x-4 bottom-4 top-20 bg-white rounded-lg p-4 shadow-md border border-slate-200 transform translate-y-36 opacity-0 transition-all duration-700 flex flex-col justify-center items-center text-center">
+            <span class="text-rosy text-xl mb-1">❤️</span>
+            <p class="font-handwriting text-2xl text-slate-800 leading-snug">
+              To my Thenu,<br>
+              A journey of moments, a lifetime of love…
+            </p>
+            <p class="text-xs font-serif text-slate-500 mt-2 italic font-semibold">— Silk ❤️</p>
+          </div>
+
+          <!-- Bottom fold shadow/lines -->
+          <div
+            class="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#e5d8be]/60 via-transparent to-transparent">
+          </div>
+
+          <!-- Front envelope flap (fold) -->
+          <div id="envelope-flap-el"
+            class="envelope-flap absolute inset-x-0 top-0 h-36 bg-[#f0e4cc] border-b border-[#ddcdb0] shadow-sm z-20 flex justify-center items-end pb-3">
+            <!-- Heart Wax Seal placed right on the triangle point -->
+            <div id="wax-seal-btn"
+              class="wax-seal w-14 h-14 rounded-full flex items-center justify-center transform translate-y-7 z-30 transition-transform duration-300 group-hover:scale-110">
+              <span class="text-2xl text-softblush/90 filter drop-shadow">❤️</span>
+            </div>
+          </div>
+
+          <!-- Subtle stamp and calligraphy on front -->
+          <div class="relative z-10 flex justify-between items-end text-slate-700 opacity-80 pt-6">
+            <div class="text-left font-serif text-[11px] space-y-0.5">
+              <span class="block text-slate-400 uppercase tracking-widest text-[9px]">Air Mail Special</span>
+              <p class="font-handwriting text-lg text-crimson font-bold">For: Poorvaja (Thenu)</p>
+              <p class="text-[10px] text-slate-500">Destination: Our Forever</p>
+            </div>
+            <div
+              class="w-12 h-14 border border-dashed border-crimson/50 rounded flex flex-col items-center justify-center p-1 bg-white/40">
+              <span class="text-xs">📮</span>
+              <span class="text-[8px] font-mono text-crimson font-bold uppercase mt-1">NOV 16</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prompt text / CTA Button -->
+      <div class="mt-6 flex flex-col items-center gap-3">
+        <p id="envelope-instruction" class="text-slate-400 font-serif italic text-sm tracking-wide animate-bounce">
+          Click the envelope to begin 💌
+        </p>
+
+        <!-- Hidden button revealed once opened -->
+        <button id="begin-journey-btn" onclick="enterRoadmapStage()"
+          class="hidden px-8 py-3.5 rounded-full bg-gradient-to-r from-crimson via-sunset to-rosy text-white font-semibold font-serif text-base tracking-wide shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 items-center gap-2 glow-gold">
+          <span>Begin Our Journey</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 inline"></i>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- SCREEN 2: INTERACTIVE LOVE STORY ROAD MAP (MAIN FEATURE)       -->
+  <!-- ============================================================== -->
+  <section id="stage-roadmap" class="hidden min-h-screen pt-24 pb-20 px-4 md:px-8 relative z-10">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- Roadmap Header -->
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rosy/10 border border-rosy/30 text-rosy text-xs font-semibold mb-3">
+          <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+          <span>Interactive Relationship Odyssey</span>
+        </div>
+        <h2 class="font-serif text-3xl md:text-5xl font-bold text-softblush mb-2">
+          Every Road Led Me to You ❤️
+        </h2>
+        <p class="font-handwriting text-2xl md:text-3xl text-warmgold mb-2">
+          Our Love Story Road Map
+        </p>
+        <p class="text-sm md:text-base text-slate-300 font-serif italic">
+          “Not just places, but moments that brought us closer… ❤️”
+        </p>
+
+        <!-- Progress Bar Indicator -->
+        <div class="mt-5 flex items-center justify-center gap-4 text-xs text-slate-300">
+          <span id="visited-counter" class="font-medium text-warmgold">Visited: 0 Stops</span>
+          <div class="w-48 bg-white/10 rounded-full h-2 overflow-hidden border border-white/10">
+            <div id="progress-bar-fill"
+              class="bg-gradient-to-r from-crimson to-rosy h-full rounded-full transition-all duration-500"
+              style="width: 5%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN ROAD MAP INTERACTION CANVAS & SIDE/MODAL PANEL -->
+      <div class="max-w-3xl mx-auto">
+
+        <!-- ROAD MAP VISUAL LANDSCAPE (SVG & Responsive Nodes) -->
+        <div
+          class="bg-nightsky/70 backdrop-blur-md rounded-3xl border border-white/10 p-4 sm:p-6 polaroid-shadow relative overflow-hidden">
+
+          <!-- Illustrated Landscape Skyline / Sunset Ambiance Background -->
+          <div
+            class="absolute inset-0 bg-gradient-to-b from-[#1b1c3d]/60 via-[#182142]/40 to-[#0e142c]/90 pointer-events-none rounded-3xl">
+          </div>
+
+          <!-- Atmospheric landscape decorative silhouettes -->
+          <div
+            class="absolute top-0 right-0 left-0 h-40 bg-gradient-to-b from-sunset/15 to-transparent pointer-events-none">
+          </div>
+
+          <!-- Quick Filter / Legend -->
+          <div
+            class="relative z-10 flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-white/10 text-xs">
+            <div class="flex items-center gap-2 text-slate-300">
+              <span class="w-3 h-3 rounded-full bg-crimson border border-white/50 inline-block"></span>
+              <span>All Our Memories</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="zoomMap(1)"
+                class="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-slate-300 text-xs transition" title="Zoom In">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+              </button>
+              <button onclick="zoomMap(-1)"
+                class="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-slate-300 text-xs transition"
+                title="Zoom Out">
+                <i data-lucide="zoom-out" class="w-4 h-4"></i>
+              </button>
+              <span class="text-[11px] text-warmgold italic ml-1">Tap any stop to open its photo & story</span>
+            </div>
+          </div>
+
+          <!-- The Winding Road Container -->
+          <div id="map-scroll-viewport" class="relative z-10 w-full overflow-x-auto overflow-y-visible pb-4 pt-2">
+            <div id="map-canvas-inner"
+              class="relative min-w-[720px] h-[2720px] transition-transform duration-300 origin-top">
+
+              <!-- SVG Illustrated Road Network -->
+              <svg class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="roadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ff9a8b" stop-opacity="0.8" />
+                    <stop offset="35%" stop-color="#f48c06" stop-opacity="0.9" />
+                    <stop offset="70%" stop-color="#e0a96d" stop-opacity="0.9" />
+                    <stop offset="100%" stop-color="#f4acb7" stop-opacity="1" />
+                  </linearGradient>
+                  <filter id="roadGlow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="6" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                </defs>
+
+                <!-- Smooth winding road generated through the chronological memory markers -->
+                <path id="road-shadow-path" d="" fill="none" stroke="#251a3a" stroke-width="24" stroke-linecap="round"
+                  stroke-linejoin="round" opacity="0.6" />
+                <path id="road-main-path" d="" fill="none" stroke="url(#roadGrad)" stroke-width="8"
+                  stroke-linecap="round" stroke-linejoin="round" filter="url(#roadGlow)" />
+                <path id="road-center-path" d="" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="8 8"
+                  stroke-linecap="round" opacity="0.8" />
+
+                <!-- Decorative Landscape Landmarks on SVG -->
+                <!-- Munnar mountains & tea trees -->
+                <g opacity="0.5">
+                  <polygon points="50,110 90,30 130,110" fill="#1f3d36" />
+                  <polygon points="100,120 150,45 200,120" fill="#182c28" />
+                  <!-- Chitlapakkam Lake shimmer -->
+                  <ellipse cx="280" cy="570" rx="90" ry="30" fill="#1b4d68" opacity="0.5" />
+                  <!-- Tiger Cave monolith -->
+                  <path d="M 570 470 Q 610 400 640 480 Z" fill="#3c2f2f" />
+                  <path d="M 580 830 Q 620 760 650 840 Z" fill="#3c2f2f" />
+                </g>
+              </svg>
+
+              <!-- Dynamic chronological clickable road-map markers injected here -->
+              <div id="markers-layer"></div>
+
+            </div>
+          </div>
+
+          <div class="mt-3 flex items-center justify-between text-[11px] text-slate-400">
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              Visited / Photographed</span>
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rosy animate-ping"></span>
+              Active Stop</span>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- SCREEN 4: MY BEAUTIFUL THENU - PERSONAL PHOTO ALBUM           -->
+  <!-- ============================================================== -->
+  <section id="stage-her-photos"
+    class="py-24 px-4 md:px-8 relative z-10 border-t border-white/10 bg-gradient-to-b from-[#11182f] to-[#20142b]">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="text-xs font-semibold uppercase tracking-[0.25em] text-rosy">A gallery made just for you</span>
+        <h2 class="font-handwriting text-4xl md:text-6xl text-softblush mt-2">My Beautiful Thenu ❤️</h2>
+        <p class="font-serif italic text-slate-300 mt-3">Every picture deserves a little love note. Upload your
+          favourite photos and edit each caption.</p>
+      </div>
+      <!-- Candle burst: one candle per photo -->
+      <div id="candle-stage" class="relative max-w-sm mx-auto mb-14 text-center">
+        <p class="font-handwriting text-3xl text-amber-100">My beautiful Thenu 🎈</p>
+        <p class="text-xs text-rose-100/70 mt-1 mb-7">Tap a balloon to pop it and reveal a photo below.</p>
+        <div id="candle-row" class="relative z-10 flex items-end justify-center gap-2 sm:gap-4"></div>
+        <div class="mx-auto w-[88%] h-11 -mt-px rounded-t-2xl bg-gradient-to-b from-[#fff4ee] to-rosy shadow-lg"></div>
+        <div
+          class="mx-auto w-full h-14 rounded-b-3xl rounded-t-lg bg-gradient-to-b from-[#c9526f] to-crimson shadow-2xl">
+        </div>
+        <div
+          class="mx-auto w-[110%] -ml-[5%] h-2.5 mt-0.5 rounded-full bg-gradient-to-r from-warmgold/70 via-goldglow to-warmgold/70">
+        </div>
+        <p id="wish-msg" class="hidden mt-6 font-handwriting text-3xl text-rosy">Every wish is yours, my Thenu. Happy
+          Birthday 💖</p>
+        <div class="mt-6">
+          <button id="blow-all-btn" onclick="blowAllCandles()"
+            class="px-5 py-2.5 rounded-full bg-rose-200 text-rose-950 font-semibold text-sm hover:scale-105 transition">Pop
+            all balloons 🎈</button>
+          <button id="relight-btn" onclick="renderCandles()"
+            class="hidden px-5 py-2.5 rounded-full border border-white/30 text-white text-sm hover:bg-white/10 transition">Bring
+            balloons back 🎈</button>
+        </div>
+      </div>
+
+      <div id="her-photo-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7"></div>
+      <p class="text-center text-xs text-slate-400 mt-6">Photos and captions are saved in this browser on this device.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- SCREEN 5: OUR VIDEO MOMENT                                     -->
+  <!-- ============================================================== -->
+  <section id="stage-video" class="py-24 px-4 md:px-8 relative z-10 bg-[#090e20] border-t border-white/10">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="text-xs font-semibold uppercase tracking-[0.25em] text-warmgold">A little movie of us</span>
+      <h2 class="font-handwriting text-4xl md:text-6xl text-softblush mt-2 mb-3">Our Moments in Motion 🎞️</h2>
+      <p class="font-serif italic text-slate-300 mb-8">After all the pictures, here is a moving memory just for you.</p>
+      <div class="bg-parchment p-3 md:p-5 rounded-3xl polaroid-shadow">
+        <video id="our-video-player" class="w-full max-h-[65vh] rounded-xl bg-black" controls playsinline></video>
+        <div class="flex flex-col sm:flex-row gap-3 items-center justify-between p-3 text-slate-900">
+          <input id="video-title"
+            class="w-full sm:flex-1 bg-transparent border-b border-stone-300 px-2 py-2 font-handwriting text-2xl text-crimson text-center sm:text-left"
+            value="A little piece of us ❤️" aria-label="Edit video title">
+          <label
+            class="cursor-pointer px-4 py-2 rounded-xl bg-crimson text-white text-sm font-semibold hover:bg-deepwine">Upload
+            Our Video<input id="our-video-upload" type="file" accept="video/*" class="hidden"></label>
+          <button id="remove-video" class="px-4 py-2 rounded-xl bg-stone-200 text-stone-700 text-sm hidden">Remove
+            Video</button>
+        </div>
+      </div>
+      <p class="text-xs text-slate-400 mt-4">Choose an MP4 or other browser-supported video. Large videos are kept in
+        this browser using IndexedDB.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- SCREEN 6: MY LETTER TO YOU                                     -->
+  <!-- ============================================================== -->
+  <section id="stage-letter" class="py-24 px-4 md:px-8 relative z-10 bg-[#070b18]">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-8">
+        <span class="text-xs font-semibold uppercase tracking-[0.25em] text-warmgold">Words From The Heart</span>
+        <h2 class="font-serif text-3xl md:text-4xl font-bold text-softblush mt-2">My Letter to You</h2>
+      </div>
+
+      <!-- Vintage Letter Paper -->
+      <div
+        class="relative bg-parchment text-stone-900 rounded-3xl polaroid-shadow border-4 border-[#ebdcc4] p-8 md:p-14 parchment-texture">
+        <!-- Wax Seal & Ribbon decoration at top -->
+        <div
+          class="absolute -top-7 left-1/2 -translate-x-1/2 wax-seal w-14 h-14 rounded-full flex items-center justify-center text-xl shadow-xl">
+          ❤️
+        </div>
+
+        <div class="font-handwriting text-2xl md:text-3xl text-crimson font-bold mb-6 pt-2">
+          My dearest Thenu,
+        </div>
+
+        <!-- Verbatim Letter Content as requested -->
+        <div class="font-serif text-base md:text-lg text-stone-800 leading-relaxed space-y-4">
+          <p class="font-bold text-crimson text-xl">
+            Happy Birthday, my love. ❤️
+          </p>
+          <p>
+            Sometimes I think about how unexpectedly you became such an important part of my life.
+          </p>
+          <p>
+            We started with a college trip, a train journey to Munnar, Wonderla, and those more-than-two-hour
+            conversations when everyone else was asleep.
+          </p>
+          <p>
+            Our story has been full of unexpected moments, long conversations, teasing, laughs, and memories I never
+            want to lose.
+          </p>
+          <p>
+            But what means even more to me is that you have stayed beside me and supported me through difficult
+            situations.
+          </p>
+          <p>
+            Thank you for being there for me. Thank you for choosing me.
+          </p>
+          <p class="font-bold text-crimson">
+            Happy Birthday, Poorvaja. Happy Birthday, my Thenu.
+          </p>
+          <p class="text-xl font-bold">
+            I love you. ❤️
+          </p>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-stone-300 text-right">
+          <p class="font-handwriting text-3xl md:text-4xl text-crimson font-bold">
+            Forever yours, Silk ❤️
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- SCREEN 5: MY PROMISES TO YOU (STOP 16)                        -->
+  <!-- ============================================================== -->
+  <section id="stage-promises"
+    class="py-24 px-4 md:px-8 relative z-10 bg-gradient-to-b from-[#070b18] via-nightsky to-[#15122b]">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-14">
+        <span class="text-xs font-semibold uppercase tracking-[0.25em] text-sunset">My Promises — Vows of Silk</span>
+        <h2 class="font-serif text-3xl md:text-5xl font-bold text-softblush mt-2 mb-3">My Promises to You</h2>
+        <p class="font-serif italic text-slate-300 text-sm md:text-base">
+          Written under sunset skies, etched forever in my soul.
+        </p>
+      </div>
+
+      <!-- Floating Paper Notes Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div
+          class="bg-parchment/95 text-stone-900 rounded-2xl p-6 shadow-xl border-l-4 border-crimson parchment-texture transform hover:-translate-y-1 transition-all">
+          <span class="text-2xl mb-2 block">👂</span>
+          <h4 class="font-serif font-bold text-lg text-crimson mb-1">To Listen & Understand</h4>
+          <p class="font-serif text-stone-800 text-sm leading-relaxed">
+            I promise to listen to you and truly understand you.
+          </p>
+        </div>
+
+        <div
+          class="bg-parchment/95 text-stone-900 rounded-2xl p-6 shadow-xl border-l-4 border-sunset parchment-texture transform hover:-translate-y-1 transition-all">
+          <span class="text-2xl mb-2 block">🤝</span>
+          <h4 class="font-serif font-bold text-lg text-sunset mb-1">Honesty Above All</h4>
+          <p class="font-serif text-stone-800 text-sm leading-relaxed">
+            I promise to be honest with you, even when it’s difficult.
+          </p>
+        </div>
+
+        <div
+          class="bg-parchment/95 text-stone-900 rounded-2xl p-6 shadow-xl border-l-4 border-warmgold parchment-texture transform hover:-translate-y-1 transition-all">
+          <span class="text-2xl mb-2 block">🗺️</span>
+          <h4 class="font-serif font-bold text-lg text-warmgold mb-1">Countless Adventures</h4>
+          <p class="font-serif text-stone-800 text-sm leading-relaxed">
+            I promise to make more beautiful memories with you, one trip and one little moment at a time.
+          </p>
+        </div>
+
+        <div
+          class="bg-parchment/95 text-stone-900 rounded-2xl p-6 shadow-xl border-l-4 border-rosy parchment-texture transform hover:-translate-y-1 transition-all">
+          <span class="text-2xl mb-2 block">💐</span>
+          <h4 class="font-serif font-bold text-lg text-rosy mb-1">Endless Appreciation</h4>
+          <p class="font-serif text-stone-800 text-sm leading-relaxed">
+            I promise to appreciate the love and support you give me.
+          </p>
+        </div>
+
+        <div
+          class="bg-parchment/95 text-stone-900 rounded-2xl p-6 shadow-xl border-l-4 border-purple-400 parchment-texture transform hover:-translate-y-1 transition-all">
+          <span class="text-2xl mb-2 block">💞</span>
+          <h4 class="font-serif font-bold text-lg text-purple-700 mb-1">Choosing Us Always</h4>
+          <p class="font-serif text-stone-800 text-sm leading-relaxed">
+            I promise to choose us, both in the happy days and the hard ones.
+          </p>
+        </div>
+
+        <div
+          class="bg-parchment/95 text-stone-900 rounded-2xl p-6 shadow-xl border-l-4 border-emerald-500 parchment-texture transform hover:-translate-y-1 transition-all">
+          <span class="text-2xl mb-2 block">✨</span>
+          <h4 class="font-serif font-bold text-lg text-emerald-700 mb-1">Laughter & Future</h4>
+          <p class="font-serif text-stone-800 text-sm leading-relaxed">
+            I promise to fill our future with laughter, kindness, and new memories.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Couple Photo frame in promises -->
+      <div class="mt-12 max-w-sm mx-auto bg-white p-4 rounded-2xl polaroid-shadow text-center transform rotate-1">
+        <div class="w-full h-52 bg-slate-800 rounded-lg overflow-hidden flex items-center justify-center relative">
+          <img id="promises-photo" src="" alt="Us Together" class="w-full h-full object-cover">
+          <label
+            class="absolute inset-0 bg-black/40 hover:bg-black/60 cursor-pointer flex flex-col items-center justify-center text-white text-xs opacity-0 hover:opacity-100 transition">
+            <i data-lucide="camera" class="w-6 h-6 mb-1 text-rosy"></i>
+            <span>Upload Our Couple Photo</span>
+            <input type="file" accept="image/*" class="hidden" onchange="handleCouplePhotoUpload(event)">
+          </label>
+        </div>
+        <p class="font-script text-2xl text-slate-800 mt-3 font-bold">Silk & Thenu Forever ❤️</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- SCREEN 6: THE FINAL DESTINATION - HAPPY BIRTHDAY (STOP 17)    -->
+  <!-- ============================================================== -->
+  <section id="stage-birthday"
+    class="min-h-screen py-24 px-4 md:px-8 relative z-10 flex flex-col items-center justify-center text-center overflow-hidden bg-radial from-[#1e153b] via-[#0b0f24] to-[#04060f]">
+
+    <div class="relative z-10 max-w-3xl mx-auto space-y-6">
+
+      <!-- Date Ribbon -->
+      <div
+        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-crimson/20 border border-crimson/40 text-rosy font-serif text-sm font-semibold shadow-lg">
+        <span>✨ 16 November — Your Special Day ✨</span>
+      </div>
+
+      <!-- Main Birthday Headline -->
+      <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-bold text-softblush drop-shadow-xl tracking-tight">
+        Happy Birthday, <br class="sm:hidden"><span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-sunset via-rosy to-warmgold">My Thenu! ❤️</span>
+      </h1>
+
+      <!-- Journey Summary Quote -->
+      <div class="max-w-2xl mx-auto space-y-3 font-serif text-base sm:text-lg text-slate-300 italic leading-relaxed">
+        <p>
+          “To the girl I first noticed on the train to Munnar, the friend life brought back to me, and the girl who
+          became my love on August 10, 2025…”
+        </p>
+        <p class="font-bold text-warmgold text-xl not-italic">
+          “Today is all about you.”
+        </p>
+      </div>
+
+      <!-- Birthday cake candles: blow them out to reveal the final surprise -->
+      <div id="final-cake" class="text-6xl py-3" aria-label="Birthday cake with candles">🕯️🕯️🕯️🎂🕯️🕯️🕯️</div>
+      <p id="final-cake-note" class="font-handwriting text-2xl text-amber-100">Make a wish, my Thenu… then blow! 💖</p>
+      <!-- Interactive 3D Gift Box -->
+      <div class="py-8 flex flex-col items-center">
+        <div id="gift-box-wrapper" class="relative cursor-pointer group" onclick="triggerOpenGift()">
+          <!-- Ambient Glow -->
+          <div
+            class="absolute -inset-6 bg-gradient-to-r from-crimson via-sunset to-rosy rounded-full blur-2xl opacity-60 group-hover:opacity-100 transition-opacity">
+          </div>
+
+          <!-- Box Icon container -->
+          <div id="gift-icon-el"
+            class="relative w-32 h-32 sm:w-40 sm:h-40 rounded-3xl bg-gradient-to-tr from-crimson to-rosy polaroid-shadow flex items-center justify-center transform transition-transform duration-500 group-hover:scale-105 active:scale-95 border-2 border-white/20">
+            <span class="text-5xl sm:text-6xl animate-bounce">🎁</span>
+            <div class="absolute inset-x-0 h-4 bg-warmgold/90 top-1/2 -translate-y-1/2"></div>
+            <div class="absolute inset-y-0 w-4 bg-warmgold/90 left-1/2 -translate-x-1/2"></div>
+          </div>
+        </div>
+
+        <button onclick="birthdayCandleBlow()"
+          class="mt-6 px-8 py-3.5 rounded-full bg-gradient-to-r from-sunset to-crimson text-white font-serif font-bold text-base shadow-2xl hover:scale-105 active:scale-95 transition-transform glow-gold flex items-center gap-2">
+          <span>Blow Thenu’s Birthday Candles 🎂</span>
+        </button>
+      </div>
+
+      <!-- REVEALED FINAL SURPRISE MODAL / CARD -->
+      <div id="final-surprise-card"
+        class="hidden relative bg-parchment text-stone-900 rounded-3xl polaroid-shadow border-4 border-warmgold p-8 sm:p-12 max-w-xl mx-auto parchment-texture transform scale-95 transition-all duration-700 animate-in fade-in zoom-in">
+        <div class="text-4xl mb-3">💖 🎂 💖</div>
+        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-crimson mb-4">
+          Happy Birthday, Poorvaja!
+        </h3>
+        <p class="font-serif text-stone-800 text-base leading-relaxed mb-6">
+          Thank you for every smile, every ride, and every memory on our road. This is just the beginning of our forever
+          story.
+        </p>
+
+        <!-- EXACT PHRASE REQUIRED -->
+        <div class="p-4 rounded-2xl bg-crimson/10 border border-crimson/30 my-6">
+          <p class="font-handwriting text-3xl sm:text-4xl text-crimson font-bold">
+            “Thenu kutty ku waiting ❤️”
+          </p>
+        </div>
+
+        <p class="font-serif italic text-stone-700 text-lg mb-6">
+          Forever yours, Silk ❤️
+        </p>
+
+        <!-- Replay button -->
+        <button onclick="replaySurprise()"
+          class="px-6 py-2.5 rounded-full bg-stone-900 text-white font-serif text-xs font-semibold hover:bg-stone-800 transition flex items-center gap-2 mx-auto">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+          <span>Replay From Beginning</span>
+        </button>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- STOP POP-UP: photo + story open over everything else           -->
+  <!-- ============================================================== -->
+  <div id="memory-modal"
+    class="hidden fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-sm"
+    role="dialog" aria-modal="true" aria-labelledby="panel-story-title"
+    onclick="if(event.target===this)closeMemoryModal()">
+    <div class="relative w-full max-w-md modal-pop">
+      <button onclick="closeMemoryModal()"
+        class="absolute -top-3 -right-3 z-30 w-9 h-9 rounded-full bg-crimson text-white shadow-lg flex items-center justify-center hover:bg-deepwine"
+        aria-label="Close">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+      <div id="memory-card-panel"
+        class="max-h-[90vh] overflow-y-auto bg-parchment text-slate-900 rounded-3xl polaroid-shadow border-2 border-parchmentDark p-4 sm:p-6 parchment-texture">
+        <!-- Stop header & Progress badge -->
+        <div class="flex items-center justify-between border-b border-stone-300/70 pb-3 mb-4">
+          <span id="panel-stop-badge"
+            class="px-2.5 py-1 rounded-full bg-crimson/10 text-crimson font-serif text-xs font-semibold">
+            Stop 1 of 21
+          </span>
+          <span id="panel-stop-date" class="text-xs font-serif text-stone-500 font-medium italic">
+            College IV Trip
+          </span>
+        </div>
+
+        <!-- Polaroid Photo Frame Display -->
+        <div
+          class="relative bg-white p-3 rounded-lg shadow-md border border-stone-200 transform -rotate-1 hover:rotate-0 transition-transform duration-300 mb-4 group">
+          <!-- Tape detail at top -->
+          <div
+            class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-amber-100/80 backdrop-blur-sm border border-stone-300/50 -rotate-2 z-10 opacity-80 pointer-events-none">
+          </div>
+
+          <div
+            class="relative w-full h-[40vh] min-h-[200px] max-h-[360px] bg-slate-900 rounded overflow-hidden flex items-center justify-center">
+            <!-- User photo / Illustrated placeholder image -->
+            <img id="panel-photo-img" src="" alt="Memory Photo"
+              class="w-full h-full object-contain transition-opacity duration-300">
+
+            <!-- Overlay upload hover prompt -->
+            <label
+              class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer text-white p-4 text-center">
+              <i data-lucide="camera" class="w-8 h-8 text-rosy mb-1"></i>
+              <span class="text-xs font-semibold">Click to Upload Our Photo</span>
+              <span class="text-[10px] text-slate-300 mt-0.5">Supports JPG, PNG, WEBP (Saved Locally)</span>
+              <input type="file" id="panel-file-input" accept="image/*" multiple class="hidden"
+                onchange="handlePanelPhotoUpload(event)">
+            </label>
+          </div>
+
+          <!-- Polaroid Caption -->
+          <div class="pt-3 pb-1 px-1 text-center">
+            <p id="panel-photo-caption" class="font-script text-xl sm:text-2xl text-slate-800 font-bold leading-tight">
+              “Where our story first began 🚂”
+            </p>
+          </div>
+        </div>
+
+        <!-- Story Title & Body Content -->
+        <div class="space-y-3 mb-5">
+          <h3 id="panel-story-title" class="font-serif text-xl sm:text-2xl font-bold text-slate-900 leading-snug">
+            Munnar Train: The Beginning
+          </h3>
+          <p id="panel-story-body" class="text-sm font-serif text-stone-700 leading-relaxed">
+            Our story began during our college IV trip to Munnar. I was impressed when I first saw you, but you were
+            already committed to someone else at that time. We still spent a lot of time together during the trip.
+          </p>
+        </div>
+
+        <button id="panel-goto-btn"
+          class="hidden w-full mb-4 px-4 py-2.5 rounded-xl bg-gradient-to-r from-crimson to-sunset text-white font-serif font-semibold text-sm shadow-md hover:scale-[1.02] transition-transform"></button>
+
+        <!-- Photo Upload & Remove Controls -->
+        <div
+          class="bg-stone-100/90 rounded-xl p-3 border border-stone-200 mb-5 flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div class="flex items-center gap-2">
+            <label
+              class="cursor-pointer px-3 py-1.5 rounded-lg bg-stone-900 text-white font-medium hover:bg-stone-800 transition flex items-center gap-1.5">
+              <i data-lucide="upload" class="w-3.5 h-3.5 text-rosy"></i>
+              <span id="upload-btn-label">Upload Our Photo</span>
+              <input type="file" accept="image/*" multiple class="hidden" onchange="handlePanelPhotoUpload(event)">
+            </label>
+            <button id="remove-photo-btn" onclick="removeCurrentPhoto()"
+              class="hidden px-2.5 py-1.5 rounded-lg bg-stone-200 text-stone-700 hover:bg-rose-100 hover:text-crimson transition flex items-center gap-1"
+              title="Revert to illustrated placeholder">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              <span>Remove</span>
+            </button>
+          </div>
+          <span id="photo-status-badge" class="text-[11px] text-stone-500 italic">Illustrated art</span>
+        </div>
+
+        <!-- Prev / Next / Back To Road Map Navigation -->
+        <div class="flex items-center justify-between pt-3 border-t border-stone-300">
+          <button onclick="navigateMemory(-1)"
+            class="px-3.5 py-2 rounded-xl bg-white border border-stone-300 text-stone-800 text-xs font-semibold hover:bg-stone-50 transition flex items-center gap-1">
+            <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            <span>Previous</span>
+          </button>
+          <button onclick="closeMemoryModal()"
+            class="text-xs font-serif text-crimson hover:underline font-semibold flex items-center gap-1">
+            <i data-lucide="map" class="w-3.5 h-3.5"></i>
+            <span>Back to Map</span>
+          </button>
+          <button onclick="navigateMemory(1)"
+            class="px-3.5 py-2 rounded-xl bg-crimson text-white text-xs font-semibold hover:bg-deepwine transition flex items-center gap-1">
+            <span>Next</span>
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- JAVASCRIPT: DATA, INTERACTION ENGINE, INDEXEDDB & AUDIO        -->
+  <!-- ============================================================== -->
+  <script>
+    // -------------------------------------------------------------
+    // 17 INCIDENTS COMPREHENSIVE DATASET
+    // -------------------------------------------------------------
+    const memories = [
+
+      {
+        id: 1,
+        title: "Munnar Train: The Beginning",
+        date: "College IV Trip",
+        coords: {x: 120, y: 70},
+        caption: "Where our story first began 🚂",
+        story: "Our story began during our college IV trip to Munnar. I was impressed when I first saw you, but you were already committed to someone else at that time. We still spent a lot of time together during the trip.",
+        defaultSvg: "train",
+        theme: "mountains"
+      },
+
+      {
+        id: 2,
+        title: "Wonderla: The College Trip",
+        date: "College Trip",
+        coords: {x: 350, y: 182},
+        caption: "A day I still remember 🎢",
+        story: "Wonderla was one of the special memories from our college trip. We spent time together and created memories that stayed with me.",
+        defaultSvg: "coaster",
+        theme: "park"
+      },
+
+      {
+        id: 3,
+        title: "The Return Train: Two Hours Together",
+        date: "Return Journey",
+        coords: {x: 600, y: 294},
+        caption: "Two hours that felt too short ❤️",
+        story: "On our return train journey, everyone shared their past love stories. We shared ours too. Later, everyone else fell asleep, but we stayed awake and talked alone for more than two hours. That conversation became one of those unexpected memories I would never forget.",
+        defaultSvg: "nighttrain",
+        theme: "night"
+      },
+
+      {
+        id: 4,
+        title: "College Days: Our Fun-Enemy Era",
+        date: "College Days",
+        coords: {x: 350, y: 406},
+        caption: "From fighting to falling ❤️",
+        story: "During college, we became fun enemies. We teased each other, fought over little things, and constantly pulled each other's legs. Sometimes, I even made you cry. Back then, neither of us knew where our story would eventually lead.",
+        defaultSvg: "college",
+        theme: "playful"
+      },
+
+      {
+        id: 5,
+        title: "Finding Our Way Back",
+        date: "PG Studies Era",
+        coords: {x: 120, y: 518},
+        caption: "The conversation that started again 💬",
+        story: "Later, we were both doing our PG studies. We randomly started texting again. You had come out of your previous relationship, and I was also recovering from mine. We gradually became good friends again. Sometimes, life brings the right person back into our story when we least expect it.",
+        defaultSvg: "messages",
+        theme: "soft"
+      },
+
+      {
+        id: 6,
+        title: "Tiger Cave: January 2025",
+        date: "January 2025",
+        coords: {x: 350, y: 630},
+        caption: "One selfie, one unforgettable memory 📸",
+        story: "During our friends' trip to Tiger Cave in Mahabalipuram in January 2025, I sat on your lap, and we took a selfie together. It was a special moment that became part of our story.",
+        defaultSvg: "tigercave",
+        theme: "scenic"
+      },
+
+      {
+        id: 7,
+        title: "Queens Land",
+        date: "March 26, 2025",
+        coords: {x: 600, y: 742},
+        caption: "Queens Land memories 🎢",
+        story: "A day of fun and laughter with you at Queens Land. I want to keep every little moment from this day close to my heart.",
+        defaultSvg: "coaster",
+        theme: "park"
+      },
+
+      {
+        id: 8,
+        title: "Tiger Cave: April 5, 2025",
+        date: "April 5, 2025",
+        coords: {x: 350, y: 854},
+        caption: "Another adventure with you ❤️",
+        story: "Another Tiger Cave memory to keep in our little collection. Every visit with you becomes its own special chapter.",
+        defaultSvg: "tigercave",
+        theme: "scenic"
+      },
+
+      {
+        id: 9,
+        title: "Kovalam: April 2025",
+        date: "April 2025",
+        coords: {x: 120, y: 966},
+        caption: "The hug I will always remember 🫂",
+        story: "We went to Kovalam for our friend's birthday. It was the first time you sat on my bike for a ride. While returning, you proposed to me. I wasn't ready for another relationship, so I told you I wasn't ready. But I hugged you for the first time there, and we both became emotional. It was a difficult, honest, and unforgettable moment for both of us.",
+        defaultSvg: "coastal",
+        theme: "ocean"
+      },
+
+      {
+        id: 10,
+        title: "Beach: June 15, 2025",
+        date: "June 15, 2025",
+        coords: {x: 350, y: 1078},
+        caption: "My favourite view is you 🌊",
+        story: "A beach day with you, the sea breeze, and another memory I never want to forget.",
+        defaultSvg: "coastal",
+        theme: "ocean"
+      },
+
+      {
+        id: 11,
+        title: "Chitlapakkam: August 2, 2025",
+        date: "August 2, 2025",
+        coords: {x: 600, y: 1190},
+        caption: "A little moment, a lot of love 💗",
+        story: "A Chitlapakkam memory worth keeping in our story. I want this moment to have its own place on our road.",
+        defaultSvg: "lake",
+        theme: "sunset"
+      },
+
+      {
+        id: 12,
+        title: "Chitlapakkam Lake: August 10, 2025",
+        date: "August 10, 2025",
+        coords: {x: 350, y: 1302},
+        caption: "The day our forever began ❤️",
+        story: "On August 10, 2025, you asked me out on our first date at Chitlapakkam Lake. We spent some quiet time together. When I was dropping you off, you asked me for a hug. I found a place, and we hugged. I asked you, 'Do you really want me?' You said yes and kissed me. I kissed you too, and I finally accepted your love. That was the day we officially became a couple.",
+        defaultSvg: "lake",
+        theme: "sunset",
+        featured: true
+      },
+
+      {
+        id: 13,
+        title: "Our First Movie: December 6, 2025",
+        date: "December 6, 2025",
+        coords: {x: 120, y: 1414},
+        caption: "Our first movie date 🎬",
+        story: "Our first movie together. One more first, one more memory that belongs only to us.",
+        defaultSvg: "nighttrain",
+        theme: "night"
+      },
+
+      {
+        id: 14,
+        title: "Couple Tiger Cave",
+        date: "March 26, 2026",
+        coords: {x: 350, y: 1526},
+        caption: "Together is my favourite place 💕",
+        story: "Tiger Cave together as a couple. A place with memories from different chapters, now with a new meaning because we were there together.",
+        defaultSvg: "cavelove",
+        theme: "warm"
+      },
+
+      {
+        id: 15,
+        title: "The Dam: May 8, 2026",
+        date: "May 8, 2026",
+        coords: {x: 600, y: 1638},
+        caption: "Peace feels like being with you 💙",
+        story: "A day by the dam, adding another peaceful memory to our journey.",
+        defaultSvg: "dam",
+        theme: "water"
+      },
+
+      {
+        id: 16,
+        title: "Our Train Trip: June 2, 2026",
+        date: "June 2, 2026",
+        coords: {x: 350, y: 1750},
+        caption: "Next stop: more memories 🚂",
+        story: "Another train journey together. I hope we keep collecting journeys, conversations, and little moments like this.",
+        defaultSvg: "train",
+        theme: "mountains"
+      },
+
+      {
+        id: 17,
+        title: "Second Tiger Cave: June 4, 2026",
+        date: "June 4, 2026",
+        coords: {x: 120, y: 1862},
+        caption: "A place made special by you 📸",
+        story: "Our second Tiger Cave memory in this chapter. Two visits, countless little things to remember.",
+        defaultSvg: "tigercave",
+        theme: "scenic"
+      },
+
+      {
+        id: 18,
+        title: "Farming Land Days",
+        date: "July 3, 6 & 7, 2026",
+        coords: {x: 350, y: 1974},
+        caption: "Simple days, full heart 🌿",
+        story: "Three days at our farming land: July 3, 6, and 7. Simple moments together that mean more than words can say.",
+        defaultSvg: "farm",
+        theme: "green"
+      },
+
+      {
+        id: 19,
+        title: "Our Bike Rides",
+        date: "July 15, 18, 25 & 31; August 3, 8 & 15 (2026)",
+        coords: {x: 600, y: 2086},
+        caption: "Anywhere with you 🏍️",
+        story: "All those bike rides on July 15, 18, 25, and 31, and August 3, 8, and 15. Every ride is another reason to love the journey with you.",
+        defaultSvg: "bike",
+        theme: "road"
+      },
+
+      {
+        id: 20,
+        title: "Our Bus Trips",
+        date: "September 15 & October 1 (2026)",
+        coords: {x: 350, y: 2198},
+        caption: "Every journey feels better with you 🚌",
+        story: "Our bus trips on September 15 and October 1. Even an ordinary journey becomes special when I get to share it with you.",
+        defaultSvg: "bus",
+        theme: "twilight"
+      },
+
+      {
+        id: 21,
+        title: "The Final Destination: Happy Birthday",
+        date: "16 November",
+        coords: {x: 600, y: 2534},
+        caption: "Your magical birthday finale 🎉",
+        story: "Happy Birthday, Poorvaja (Thenu)! To the girl on the train, the friend who returned, and my forever love. Click below to unwrap your last surprise!",
+        defaultSvg: "cake",
+        theme: "celebration",
+        finale: true,
+        section: "stage-birthday",
+        sectionLabel: "Go to the Finale 🎉"
+      }
+
+    ];
+
+    // SVG Illustrated Placeholders Generator
+    function getIllustratedPlaceholderSvg(type, title) {
+      const colors = {
+        train: ['#1f2937', '#374151', '#e0a96d', '#60a5fa'],
+        coaster: ['#4c1d95', '#7c3aed', '#f43f5e', '#fbbf24'],
+        nighttrain: ['#0f172a', '#1e293b', '#fbbf24', '#f472b6'],
+        college: ['#1e3a8a', '#2563eb', '#f59e0b', '#10b981'],
+        messages: ['#312e81', '#4338ca', '#ec4899', '#f43f5e'],
+        tigercave: ['#78350f', '#92400e', '#f59e0b', '#38bdf8'],
+        coastal: ['#0c4a6e', '#0369a1', '#f97316', '#fed7aa'],
+        lake: ['#1e1b4b', '#431407', '#f97316', '#fde047'],
+        cavelove: ['#451a03', '#78350f', '#f43f5e', '#fbcfe8'],
+        farm: ['#14532d', '#15803d', '#84cc16', '#fef08a'],
+        dam: ['#082f49', '#0284c7', '#38bdf8', '#bae6fd'],
+        bike: ['#18181b', '#27272a', '#ef4444', '#f97316'],
+        bus: ['#1e1b4b', '#312e81', '#fbbf24', '#f472b6'],
+        album: ['#3b0764', '#581c87', '#ec4899', '#fbcfe8'],
+        letter: ['#78350f', '#9a3412', '#ea580c', '#ffedd5'],
+        promises: ['#831843', '#be185d', '#f472b6', '#fdf2f8'],
+        cake: ['#4c0519', '#9f1239', '#e11d48', '#fda4af']
+      };
+      const [c1, c2, c3, c4] = colors[type] || ['#1e293b', '#334155', '#f43f5e', '#fbbf24'];
+
+      return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+        <defs>
+          <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="${encodeURIComponent(c1)}"/>
+            <stop offset="100%" stop-color="${encodeURIComponent(c2)}"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="400" fill="url(%23bg)"/>
+        <!-- Star dust / ambient circles -->
+        <circle cx="100" cy="80" r="3" fill="%23fff" opacity="0.6"/>
+        <circle cx="500" cy="60" r="2" fill="%23fff" opacity="0.8"/>
+        <circle cx="340" cy="120" r="3.5" fill="%23fff" opacity="0.5"/>
+        <circle cx="450" cy="190" r="2" fill="%23fff" opacity="0.7"/>
+        <!-- Scenic silhouette center -->
+        <circle cx="300" cy="180" r="80" fill="${encodeURIComponent(c3)}" opacity="0.3"/>
+        <path d="M150,320 Q300,210 450,320 L450,400 L150,400 Z" fill="${encodeURIComponent(c4)}" opacity="0.4"/>
+        <text x="300" y="200" font-family="serif" font-size="52" text-anchor="middle" fill="%23ffffff" opacity="0.9">❤️</text>
+        <text x="300" y="270" font-family="serif" font-size="20" font-weight="bold" text-anchor="middle" fill="%23ffffff" letter-spacing="1">${encodeURIComponent(title)}</text>
+        <text x="300" y="300" font-family="sans-serif" font-size="12" text-anchor="middle" fill="%23f3ebd9" opacity="0.8">Click to upload our photo</text>
+      </svg>`;
+    }
+
+    // -------------------------------------------------------------
+    // STATE & LOCAL STORAGE (INDEXEDDB FOR RELIABLE IMAGE STORAGE)
+    // -------------------------------------------------------------
+    let activeMemoryId = 1;
+    let visitedStops = new Set([1]);
+    let uploadedPhotos = {}; // id -> dataUrl
+    let mapZoomScale = 1;
+
+    // LocalStorage helper for fallback & visited status
+    function loadPersistedState() {
+      try {
+        const storedPhotos = localStorage.getItem('thenu_silk_photos');
+        if (storedPhotos) {
+          uploadedPhotos = JSON.parse(storedPhotos);
+        }
+        const storedVisited = localStorage.getItem('thenu_silk_visited');
+        if (storedVisited) {
+          visitedStops = new Set(JSON.parse(storedVisited));
+        }
+      } catch (e) {
+        console.warn('LocalStorage access issue:', e);
+      }
+    }
+
+    function savePersistedState() {
+      try {
+        localStorage.setItem('thenu_silk_photos', JSON.stringify(uploadedPhotos));
+        localStorage.setItem('thenu_silk_visited', JSON.stringify([...visitedStops]));
+      } catch (e) {
+        console.warn('LocalStorage save issue:', e);
+      }
+    }
+
+    // -------------------------------------------------------------
+    // RENDER ROAD MAP MARKERS
+    // -------------------------------------------------------------
+    function renderRoadMapMarkers() {
+      const container = document.getElementById('markers-layer');
+      container.innerHTML = '';
+
+      memories.forEach((mem, index) => {
+        const isVisited = visitedStops.has(mem.id);
+        const isActive = mem.id === activeMemoryId;
+        const hasPhoto = !!uploadedPhotos[mem.id];
+        const thumbSrc = uploadedPhotos[mem.id] || getIllustratedPlaceholderSvg(mem.defaultSvg, mem.title);
+
+        const markerEl = document.createElement('div');
+        markerEl.id = `map-marker-${mem.id}`;
+        markerEl.className = `absolute group cursor-pointer select-none transition-all duration-300 z-20 ${isActive ? 'scale-110 z-30' : 'hover:scale-105'}`;
+        markerEl.style.left = `${mem.coords.x}px`;
+        markerEl.style.top = `${mem.coords.y}px`;
+        markerEl.style.transform = 'translate(-50%, -50%)';
+
+        markerEl.onclick = (e) => {
+          e.stopPropagation();
+          selectMemory(mem.id, true);
+        };
+
+        markerEl.innerHTML = `
+          <!-- Pulsing Glow for Active / Special -->
+          <div class="absolute -inset-2 rounded-full ${isActive ? 'bg-rosy/40 animate-ping' : mem.featured ? 'bg-warmgold/30 animate-pulse' : 'bg-transparent'}"></div>
+          
+          <!-- Outer Polaroid-style Badge Node -->
+          <div class="relative flex items-center gap-2.5 px-3 py-2 rounded-2xl ${isActive ? 'bg-gradient-to-r from-crimson to-rosy text-white shadow-xl shadow-crimson/30 ring-2 ring-white' : isVisited ? 'bg-nightsky/95 text-slate-100 border border-rosy/40 shadow-lg' : 'bg-nightsky/90 text-slate-300 border border-white/20 shadow-md'} hover:border-warmgold transition-colors">
+            
+            <!-- Stop Number & Heart Pin -->
+            <div class="w-7 h-7 rounded-full ${isActive ? 'bg-white text-crimson font-bold' : isVisited ? 'bg-rosy/20 text-rosy font-semibold' : 'bg-white/10 text-slate-300'} flex items-center justify-center text-xs shadow-inner">
+              ${index + 1}
+            </div>
+
+            <!-- Thumbnail Image -->
+            <div class="w-9 h-9 rounded-xl overflow-hidden border border-white/20 bg-slate-800 flex-shrink-0 relative">
+              <img src="${thumbSrc}" alt="${mem.title}" class="w-full h-full object-cover">
+              ${hasPhoto ? `<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full border border-white"></span>` : ''}
+            </div>
+
+            <!-- Title & Date Label -->
+            <div class="text-left pr-1">
+              <p class="text-xs font-serif font-bold tracking-tight line-clamp-1 max-w-[130px] sm:max-w-[150px]">${mem.title.split(':')[0]}</p>
+              <p class="text-[10px] ${isActive ? 'text-white/80' : 'text-slate-400'} font-sans flex items-center gap-1">
+                <span>${mem.date}</span>
+                ${mem.featured ? '❤️' : ''}
+              </p>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(markerEl);
+      });
+
+      // Draw one continuous, smooth S-shaped road through every memory in date order.
+      const svg = document.querySelector('#map-canvas-inner svg');
+      if (svg && memories.length) {
+        const points = memories.map(m => ({x: m.coords.x, y: m.coords.y}));
+        let d = `M ${points[0].x} ${points[0].y}`;
+        for (let i = 0; i < points.length - 1; i++) {
+          const a = points[i], b = points[i + 1];
+          const midY = (a.y + b.y) / 2;
+          d += ` C ${a.x} ${midY}, ${b.x} ${midY}, ${b.x} ${b.y}`;
+        }
+        ['road-shadow-path', 'road-main-path', 'road-center-path'].forEach(id => {
+          const path = svg.querySelector(`#${id}`);
+          if (path) path.setAttribute('d', d);
+        });
+      }
+      updateProgressUI();
+    }
+
+    // -------------------------------------------------------------
+    // MEMORY SELECTION & PANEL UPDATE
+    // -------------------------------------------------------------
+    function selectMemory(id, openModal = false) {
+      activeMemoryId = id;
+      visitedStops.add(id);
+      savePersistedState();
+
+      const mem = memories.find(m => m.id === id);
+      if (!mem) return;
+
+      // Update Panel Elements
+      document.getElementById('panel-stop-badge').textContent = `Stop ${memories.indexOf(mem) + 1} of ${memories.length}`;
+      document.getElementById('panel-stop-date').textContent = mem.date;
+      document.getElementById('panel-story-title').textContent = mem.title;
+      document.getElementById('panel-story-body').textContent = mem.story;
+      document.getElementById('panel-photo-caption').textContent = mem.caption;
+
+      const photoImg = document.getElementById('panel-photo-img');
+      const removeBtn = document.getElementById('remove-photo-btn');
+      const statusBadge = document.getElementById('photo-status-badge');
+      const uploadLabel = document.getElementById('upload-btn-label');
+
+      const stopPhotos = Array.isArray(uploadedPhotos[id]) ? uploadedPhotos[id] : (uploadedPhotos[id] ? [uploadedPhotos[id]] : []);
+      if (stopPhotos.length) {
+        photoImg.src = stopPhotos[0];
+        removeBtn.classList.remove('hidden');
+        statusBadge.textContent = `${stopPhotos.length} photo${stopPhotos.length === 1 ? '' : 's'} uploaded ❤️`;
+        statusBadge.className = 'text-[11px] text-emerald-600 font-semibold';
+        uploadLabel.textContent = 'Replace Photo';
+      } else {
+        photoImg.src = getIllustratedPlaceholderSvg(mem.defaultSvg, mem.title);
+        removeBtn.classList.add('hidden');
+        statusBadge.textContent = 'Illustrated placeholder';
+        statusBadge.className = 'text-[11px] text-stone-500 italic';
+        uploadLabel.textContent = 'Upload Our Photo';
+      }
+      const thumbs = document.getElementById('panel-photo-thumbs');
+      if (thumbs) {
+        thumbs.innerHTML = stopPhotos.map((src, i) => `<button type="button" onclick="showStopPhoto(${i})" class="w-12 h-12 rounded-lg overflow-hidden border-2 border-rose-300 hover:border-crimson"><img src="${src}" class="w-full h-full object-cover" alt="Memory photo ${i + 1}"></button>`).join('');
+        thumbs.dataset.photos = JSON.stringify(stopPhotos);
+      }
+
+      // Re-render markers to update active styling and visited badges
+      renderRoadMapMarkers();
+
+      // Optional shortcut button (letter / promises / finale)
+      const gotoBtn = document.getElementById('panel-goto-btn');
+      if (gotoBtn) {
+        if (mem.section) {
+          gotoBtn.textContent = mem.sectionLabel;
+          gotoBtn.classList.remove('hidden');
+          gotoBtn.onclick = () => {closeMemoryModal(false); goToSection(mem.section);};
+        } else {
+          gotoBtn.classList.add('hidden');
+        }
+      }
+
+      // Smooth scroll viewport to focus marker if needed
+      centerMarkerInViewport(mem.coords.x, mem.coords.y);
+
+      if (openModal) openMemoryModal();
+    }
+
+    function showStopPhoto(index) {
+      const photos = Array.isArray(uploadedPhotos[activeMemoryId]) ? uploadedPhotos[activeMemoryId] : [uploadedPhotos[activeMemoryId]];
+      if (photos[index]) document.getElementById('panel-photo-img').src = photos[index];
+    }
+
+    function openMemoryModal() {
+      const m = document.getElementById('memory-modal');
+      if (!m) return;
+      m.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      const panel = document.getElementById('memory-card-panel');
+      if (panel) panel.scrollTop = 0;
+      lucide.createIcons();
+    }
+
+    function closeMemoryModal(recenter = true) {
+      const m = document.getElementById('memory-modal');
+      if (!m || m.classList.contains('hidden')) return;
+      m.classList.add('hidden');
+      document.body.style.overflow = '';
+      if (recenter) {
+        const marker = document.getElementById(`map-marker-${activeMemoryId}`);
+        if (marker) marker.scrollIntoView({behavior: 'smooth', block: 'center'});
+      }
+    }
+    document.addEventListener('keydown', e => {if (e.key === 'Escape') closeMemoryModal();});
+
+    function navigateMemory(delta) {
+      let idx = memories.findIndex(m => m.id === activeMemoryId) + delta;
+      if (idx < 0) idx = memories.length - 1;
+      if (idx >= memories.length) idx = 0;
+      selectMemory(memories[idx].id);
+    }
+
+    function centerMarkerInViewport(x, y) {
+      const viewport = document.getElementById('map-scroll-viewport');
+      if (!viewport) return;
+      const targetScroll = x - (viewport.clientWidth / 2);
+      viewport.scrollTo({
+        left: Math.max(0, targetScroll),
+        behavior: 'smooth'
+      });
+    }
+
+    function zoomToActiveMarker() {
+      const mem = memories.find(m => m.id === activeMemoryId);
+      if (mem) centerMarkerInViewport(mem.coords.x, mem.coords.y);
+    }
+
+    function zoomMap(delta) {
+      mapZoomScale = Math.min(1.4, Math.max(0.75, mapZoomScale + (delta * 0.15)));
+      const canvas = document.getElementById('map-canvas-inner');
+      if (canvas) {
+        canvas.style.transform = `scale(${mapZoomScale})`;
+      }
+    }
+
+    // -------------------------------------------------------------
+    // PHOTO UPLOAD & REMOVE HANDLING (PER-MEMORY ISOLATED)
+    // -------------------------------------------------------------
+    function handlePanelPhotoUpload(event) {
+      const files = Array.from(event.target.files || []).filter(f => f.type.startsWith('image/'));
+      if (!files.length) return;
+      const existing = Array.isArray(uploadedPhotos[activeMemoryId]) ? uploadedPhotos[activeMemoryId] : (uploadedPhotos[activeMemoryId] ? [uploadedPhotos[activeMemoryId]] : []);
+      Promise.all(files.map(file => new Promise(resolve => {
+        const reader = new FileReader(); reader.onload = e => resolve(e.target.result); reader.readAsDataURL(file);
+      }))).then(dataUrls => {
+        uploadedPhotos[activeMemoryId] = existing.concat(dataUrls);
+        savePersistedState(); selectMemory(activeMemoryId);
+        confetti({particleCount: 30, spread: 60, origin: {y: .6}, colors: ['#f4acb7', '#e0a96d', '#ff7a59']});
+      });
+      event.target.value = '';
+    }
+
+    function removeCurrentPhoto() {
+      delete uploadedPhotos[activeMemoryId];
+      savePersistedState();
+      selectMemory(activeMemoryId);
+    }
+
+    function handleCouplePhotoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        uploadedPhotos[28] = e.target.result;
+        savePersistedState();
+        document.getElementById('promises-photo').src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // -------------------------------------------------------------
+    // PROGRESS TRACKING UI
+    // -------------------------------------------------------------
+    function updateProgressUI() {
+      const count = memories.filter(m => visitedStops.has(m.id)).length;
+      const total = memories.length;
+      const percent = Math.round((count / total) * 100);
+
+      const counter = document.getElementById('visited-counter');
+      if (counter) counter.textContent = `Visited: ${count} of ${total} Stops (${percent}%)`;
+
+      const fill = document.getElementById('progress-bar-fill');
+      if (fill) fill.style.width = `${Math.max(5, percent)}%`;
+    }
+
+    // Birthday-story opening: music choice and gift unwrap.
+    function startBirthdayWithMusic() {
+      attemptAutoplayMusic();
+      const choice = document.getElementById('music-choice');
+      if (choice) choice.classList.add('hidden');
+    }
+    function continueBirthdaySilent() {
+      const audio = document.getElementById('bg-audio');
+      if (audio) audio.pause();
+      const choice = document.getElementById('music-choice');
+      if (choice) choice.classList.add('hidden');
+    }
+    function unwrapBirthdayGift() {
+      const box = document.getElementById('intro-gift-box');
+      const button = document.getElementById('unwrap-gift-button');
+      const note = document.getElementById('gift-intro-note');
+      if (button.dataset.opened === 'true') return;
+      button.dataset.opened = 'true';
+      box.style.transform = 'translateY(-18px) rotate(-7deg) scale(1.12)';
+      box.style.opacity = '0';
+      if (typeof confetti === 'function') {
+        confetti({particleCount: 110, spread: 85, origin: {y: .55}, colors: ['#f4acb7', '#ffcf8a', '#ffffff', '#ff7a59']});
+      }
+      setTimeout(() => {
+        document.getElementById('stage-gift-intro').classList.add('hidden');
+        document.getElementById('stage-envelope').classList.remove('hidden');
+        window.scrollTo({top: 0, behavior: 'smooth'});
+        if (note) note.classList.remove('hidden');
+      }, 650);
+    }
+
+    // -------------------------------------------------------------
+    // ENVELOPE OPENING CEREMONY (SCREEN 1)
+    // -------------------------------------------------------------
+    let isEnvelopeOpened = false;
+
+    function triggerOpenEnvelope() {
+      if (isEnvelopeOpened) return;
+      isEnvelopeOpened = true;
+
+      // Animate Flap open
+      const flap = document.getElementById('envelope-flap-el');
+      flap.classList.add('opened');
+
+      // Hide instruction, start sound
+      document.getElementById('envelope-instruction').classList.add('hidden');
+      attemptAutoplayMusic();
+
+      // Confetti burst
+      confetti({
+        particleCount: 50,
+        spread: 70,
+        origin: {y: 0.5},
+        colors: ['#f4acb7', '#ff7a59', '#e0a96d', '#ffffff']
+      });
+
+      // Slide letter up
+      setTimeout(() => {
+        const letter = document.getElementById('rising-letter');
+        letter.classList.remove('translate-y-36', 'opacity-0');
+        letter.classList.add('translate-y-0', 'opacity-100');
+
+        // Show begin journey button
+        setTimeout(() => {
+          const btn = document.getElementById('begin-journey-btn');
+          btn.classList.remove('hidden');
+          btn.classList.add('flex');
+        }, 500);
+      }, 400);
+    }
+
+    function enterRoadmapStage() {
+      document.getElementById('stage-envelope').classList.add('hidden');
+      document.getElementById('stage-roadmap').classList.remove('hidden');
+      document.getElementById('site-nav').classList.remove('hidden');
+
+      // Scroll to roadmap view
+      window.scrollTo({top: 0, behavior: 'smooth'});
+      selectMemory(1);
+      initPersonalMedia();
+      lucide.createIcons();
+    }
+
+    function goToSection(sectionId) {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({behavior: 'smooth'});
+      }
+    }
+
+    // -------------------------------------------------------------
+    // BIRTHDAY CELEBRATION & GIFT REVEAL (SCREEN 6)
+    // -------------------------------------------------------------
+    let finalCandlesBlown = false;
+    function birthdayCandleBlow() {
+      if (finalCandlesBlown) {triggerOpenGift(); return;}
+      finalCandlesBlown = true;
+      const cake = document.getElementById('final-cake');
+      cake.innerHTML = '💨💨💨🎂💨💨💨';
+      cake.classList.add('animate-pulse');
+      document.getElementById('final-cake-note').textContent = 'Wish made… Happy Birthday, Thenu! ❤️';
+      const btn = document.querySelector('#stage-birthday button[onclick="triggerOpenGift()"]');
+      if (btn) btn.innerHTML = '<span>Open Your Last Surprise 🎁</span>';
+      confetti({particleCount: 90, spread: 90, origin: {y: .5}, colors: ['#f4acb7', '#ffcf8a', '#ffffff']});
+      setTimeout(triggerOpenGift, 900);
+    }
+    function triggerOpenGift() {
+      const card = document.getElementById('final-surprise-card');
+      card.classList.remove('hidden');
+      card.scrollIntoView({behavior: 'smooth'});
+
+      // Multi-angle fireworks celebration confetti
+      const duration = 4.5 * 1000;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 7,
+          angle: 60,
+          spread: 55,
+          origin: {x: 0},
+          colors: ['#ff7a59', '#f4acb7', '#e0a96d', '#9d0208']
+        });
+        confetti({
+          particleCount: 7,
+          angle: 120,
+          spread: 55,
+          origin: {x: 1},
+          colors: ['#ff7a59', '#f4acb7', '#e0a96d', '#9d0208']
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
+
+    function replaySurprise() {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+      setTimeout(() => {
+        isEnvelopeOpened = false;
+        document.getElementById('stage-envelope').classList.remove('hidden');
+        document.getElementById('stage-roadmap').classList.add('hidden');
+        document.getElementById('site-nav').classList.add('hidden');
+        document.getElementById('final-surprise-card').classList.add('hidden');
+
+        const flap = document.getElementById('envelope-flap-el');
+        flap.classList.remove('opened');
+        const letter = document.getElementById('rising-letter');
+        letter.classList.add('translate-y-36', 'opacity-0');
+        document.getElementById('begin-journey-btn').classList.add('hidden');
+        document.getElementById('envelope-instruction').classList.remove('hidden');
+      }, 600);
+    }
+
+    // -------------------------------------------------------------
+    // PERSISTENT AUDIO PLAYER CONTROLS
+    // -------------------------------------------------------------
+    const bgAudio = document.getElementById('bg-audio');
+    const toggleBtn = document.getElementById('audio-toggle-btn');
+    const playIcon = document.getElementById('audio-play-icon');
+    const muteBtn = document.getElementById('audio-mute-btn');
+    const volIcon = document.getElementById('audio-vol-icon');
+    const volRange = document.getElementById('volume-range');
+    const customAudioInput = document.getElementById('custom-audio-input');
+    const trackLabel = document.getElementById('track-name-label');
+
+    let isPlaying = false;
+
+    function toggleAudio() {
+      if (!isPlaying) {
+        bgAudio.play().then(() => {
+          isPlaying = true;
+          updateAudioUI();
+        }).catch(err => {
+          console.log('Audio autoplay prevented, user gesture required:', err);
+        });
+      } else {
+        bgAudio.pause();
+        isPlaying = false;
+        updateAudioUI();
+      }
+    }
+
+    function updateAudioUI() {
+      if (isPlaying) {
+        toggleBtn.innerHTML = '<i data-lucide="pause" class="w-4 h-4"></i>';
+      } else {
+        toggleBtn.innerHTML = '<i data-lucide="play" class="w-4 h-4 ml-0.5"></i>';
+      }
+      lucide.createIcons();
+    }
+
+    function attemptAutoplayMusic() {
+      if (!isPlaying) {
+        bgAudio.play().then(() => {
+          isPlaying = true;
+          updateAudioUI();
+        }).catch(() => {
+          // handled gracefully
+        });
+      }
+    }
+
+    function toggleAudioExtra() {
+      const extra = document.getElementById('audio-extra');
+      if (!extra) return;
+      const open = extra.classList.contains('hidden');
+      extra.classList.toggle('hidden', !open);
+      extra.classList.toggle('flex', open);
+    }
+
+    if (toggleBtn) toggleBtn.onclick = toggleAudio;
+
+    if (muteBtn) {
+      muteBtn.onclick = () => {
+        bgAudio.muted = !bgAudio.muted;
+        muteBtn.innerHTML = bgAudio.muted
+          ? '<i data-lucide="volume-x" class="w-4 h-4 text-rose-400"></i>'
+          : '<i data-lucide="volume-2" class="w-4 h-4"></i>';
+        lucide.createIcons();
+      };
+    }
+
+    if (volRange) {
+      volRange.oninput = (e) => {
+        bgAudio.volume = parseFloat(e.target.value);
+      };
+    }
+
+    if (customAudioInput) {
+      customAudioInput.onchange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const url = URL.createObjectURL(file);
+          bgAudio.src = url;
+          trackLabel.textContent = file.name;
+          bgAudio.play();
+          isPlaying = true;
+          updateAudioUI();
+        }
+      };
+    }
+
+    // -------------------------------------------------------------
+    // BACKGROUND CANVAS: FLOATING PARTICLES & STARS
+    // -------------------------------------------------------------
+    // -------------------------------------------------------------
+    // THENU PHOTO ALBUM: editable captions + local photo persistence
+    // -------------------------------------------------------------
+    const herPhotoCards = [
+      {id: 'love', title: 'My Love ❤️'}, {id: 'angel', title: 'My Angel 😇'},
+      {id: 'wife', title: 'My Wife 💍'}, {id: 'queen', title: 'My Queen 👑'},
+      {id: 'happiness', title: 'My Happiness 🥰'}, {id: 'everything', title: 'My Everything ♾️'}
+    ];
+    const herPhotoState = JSON.parse(localStorage.getItem('thenu_her_photo_captions') || '{}');
+    function renderHerPhotoGrid() {
+      const grid = document.getElementById('her-photo-grid'); if (!grid) return; grid.innerHTML = '';
+      herPhotoCards.forEach((item, index) => {
+        const saved = herPhotoState[item.id] || {};
+        const card = document.createElement('article'); card.id = 'her-card-' + item.id;
+        card.className = 'bg-parchment rounded-2xl p-4 polaroid-shadow text-slate-900 rotate-0 hover:-rotate-1 transition-transform';
+        card.innerHTML = `<div class="bg-white p-3 shadow-md rounded-lg"><div class="relative aspect-[4/5] bg-gradient-to-br from-rose-100 via-amber-50 to-pink-200 rounded-md overflow-hidden flex items-center justify-center"><img id="her-img-${item.id}" class="w-full h-full object-cover ${saved.photo ? '' : 'hidden'}" alt="${item.title}"><div id="her-empty-${item.id}" class="text-center p-5 ${saved.photo ? 'hidden' : ''}"><div class="text-5xl mb-3">💗</div><p class="font-handwriting text-2xl text-rose-800">Your beautiful photo goes here</p></div></div><div class="pt-4 text-center"><input id="her-caption-${item.id}" class="w-full text-center font-handwriting text-2xl text-crimson font-bold bg-transparent border-b border-dashed border-rose-300 focus:outline-none" value="${escapeHtml(saved.caption || item.title)}" aria-label="Edit photo tagline"><textarea id="her-desc-${item.id}" rows="2" placeholder="Add a little note for this photo..." class="w-full mt-2 text-center text-xs text-stone-600 bg-transparent resize-y border-b border-stone-200 focus:outline-none">${escapeHtml(saved.description || '')}</textarea></div></div><div class="flex gap-2 mt-3"><label class="flex-1 text-center cursor-pointer px-3 py-2 rounded-lg bg-stone-900 text-white text-xs font-semibold">${saved.photo ? 'Replace Photo' : 'Upload Photo'}<input id="her-upload-${item.id}" type="file" accept="image/*" multiple class="hidden"></label><button id="her-remove-${item.id}" class="${saved.photo ? '' : 'hidden'} px-3 py-2 rounded-lg bg-rose-100 text-rose-800 text-xs">Remove</button></div>`;
+        grid.appendChild(card);
+        if (saved.photo) {const img = document.getElementById(`her-img-${item.id}`); img.src = saved.photo;}
+        const saveText = () => {herPhotoState[item.id] = {...(herPhotoState[item.id] || {}), caption: document.getElementById(`her-caption-${item.id}`).value, description: document.getElementById(`her-desc-${item.id}`).value}; localStorage.setItem('thenu_her_photo_captions', JSON.stringify(herPhotoState));};
+        document.getElementById(`her-caption-${item.id}`).addEventListener('input', saveText); document.getElementById(`her-desc-${item.id}`).addEventListener('input', saveText);
+        document.getElementById(`her-upload-${item.id}`).addEventListener('change', e => {const files = Array.from(e.target.files || []); if (!files.length) return; const old = Array.isArray(herPhotoState[item.id]?.photos) ? herPhotoState[item.id].photos : (herPhotoState[item.id]?.photo ? [herPhotoState[item.id].photo] : []); Promise.all(files.map(file => new Promise(resolve => {const r = new FileReader(); r.onload = () => resolve(r.result); r.readAsDataURL(file)}))).then(add => {herPhotoState[item.id] = {...(herPhotoState[item.id] || {}), photos: old.concat(add), photo: old.concat(add)[0], caption: document.getElementById(`her-caption-${item.id}`).value, description: document.getElementById(`her-desc-${item.id}`).value}; try {localStorage.setItem('thenu_her_photo_captions', JSON.stringify(herPhotoState));} catch (err) {alert('These photos are too large for browser storage. Please choose smaller images.'); return;} renderHerPhotoGrid();});});
+        document.getElementById(`her-remove-${item.id}`).addEventListener('click', () => {herPhotoState[item.id] = {...(herPhotoState[item.id] || {}), photo: ''}; localStorage.setItem('thenu_her_photo_captions', JSON.stringify(herPhotoState)); renderHerPhotoGrid();});
+      });
+    }
+    // -------------------------------------------------------------
+    // CANDLE BURST: one candle per photo card
+    // -------------------------------------------------------------
+    const candleColors = ['#f4acb7', '#e0a96d', '#9ad0ec', '#c4a7e7', '#ff9a8b', '#a8e6cf'];
+    const burstCandles = new Set();
+    function renderCandles() {
+      burstCandles.clear();
+      const row = document.getElementById('candle-row'); if (!row) return;
+      row.innerHTML = herPhotoCards.map((c, i) => {
+        const h = 54 + (i % 3) * 8;
+        const col = candleColors[i % candleColors.length];
+        return `<button class="candle balloon flex flex-col items-center" data-id="${c.id}" onclick="burstCandle('${c.id}')" aria-label="Pop balloon: ${escapeHtml(c.title)}">
+          <span class="candle-label">🎈</span>
+          <span class="flame-wrap"><span class="flame"></span><span class="smoke"></span></span>
+          <span class="wick"></span>
+          <span class="stick" style="height:${h}px;background:${col};border-radius:50% 50% 45% 45%;width:38px;box-shadow:inset -5px -5px 8px rgba(0,0,0,.12)"></span>
+        </button>`;
+      }).join('');
+      document.getElementById('wish-msg')?.classList.add('hidden');
+      document.getElementById('relight-btn')?.classList.add('hidden');
+      document.getElementById('blow-all-btn')?.classList.remove('hidden');
+    }
+    function burstCandle(id, scroll = true) {
+      if (burstCandles.has(id)) return;
+      const btn = document.querySelector(`.candle[data-id="${id}"]`); if (!btn) return;
+      burstCandles.add(id);
+      btn.classList.add('burst');
+      const r = btn.querySelector('.flame-wrap').getBoundingClientRect();
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 46, spread: 360, startVelocity: 24, gravity: .55, ticks: 80, scalar: .9,
+          shapes: ['star', 'circle'], colors: ['#ffd27a', '#ffb347', '#f4acb7', '#fff3c4', '#ffffff'],
+          origin: {x: (r.left + r.width / 2) / window.innerWidth, y: (r.top + r.height / 2) / window.innerHeight}
+        });
+      }
+      const last = burstCandles.size === herPhotoCards.length;
+      const card = document.getElementById(`her-card-${id}`);
+      if (card) {
+        card.classList.remove('card-pop'); void card.offsetWidth; card.classList.add('card-pop');
+        if (scroll && !last) setTimeout(() => card.scrollIntoView({behavior: 'smooth', block: 'center'}), 450);
+      }
+      if (last) finishCandles();
+    }
+    function blowAllCandles() {
+      herPhotoCards.map(c => c.id).filter(id => !burstCandles.has(id))
+        .forEach((id, i) => setTimeout(() => burstCandle(id, false), i * 380));
+    }
+    function finishCandles() {
+      setTimeout(() => {
+        document.getElementById('wish-msg')?.classList.remove('hidden');
+        document.getElementById('blow-all-btn')?.classList.add('hidden');
+        document.getElementById('relight-btn')?.classList.remove('hidden');
+        if (typeof confetti === 'function') {
+          confetti({particleCount: 140, spread: 100, origin: {y: .45}, colors: ['#f4acb7', '#ffcf8a', '#ffffff', '#ff7a59']});
+          confetti({particleCount: 60, angle: 60, spread: 60, origin: {x: 0, y: .6}});
+          confetti({particleCount: 60, angle: 120, spread: 60, origin: {x: 1, y: .6}});
+        }
+      }, 500);
+    }
+
+    function escapeHtml(value) {return String(value).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));}
+
+    // Store the uploaded video as a Blob in IndexedDB so it can survive refreshes.
+    const videoDbReady = new Promise((resolve, reject) => {const req = indexedDB.open('thenu_silk_video_db', 1); req.onupgradeneeded = () => req.result.createObjectStore('assets'); req.onsuccess = () => resolve(req.result); req.onerror = () => reject(req.error);});
+    async function saveVideoBlob(blob) {const db = await videoDbReady; return new Promise((resolve, reject) => {const tx = db.transaction('assets', 'readwrite'); tx.objectStore('assets').put(blob, 'birthday-video'); tx.oncomplete = resolve; tx.onerror = () => reject(tx.error);});}
+    async function loadVideoBlob() {const db = await videoDbReady; return new Promise((resolve, reject) => {const req = db.transaction('assets').objectStore('assets').get('birthday-video'); req.onsuccess = () => resolve(req.result || null); req.onerror = () => reject(req.error);});}
+    async function removeVideoBlob() {const db = await videoDbReady; return new Promise((resolve, reject) => {const tx = db.transaction('assets', 'readwrite'); tx.objectStore('assets').delete('birthday-video'); tx.oncomplete = resolve; tx.onerror = () => reject(tx.error);});}
+    let currentVideoUrl = null;
+    function setVideoBlob(blob) {const player = document.getElementById('our-video-player'); if (currentVideoUrl) URL.revokeObjectURL(currentVideoUrl); currentVideoUrl = URL.createObjectURL(blob); player.src = currentVideoUrl; document.getElementById('remove-video').classList.remove('hidden');}
+    async function initPersonalMedia() {renderHerPhotoGrid(); renderCandles(); try {const blob = await loadVideoBlob(); if (blob) setVideoBlob(blob);} catch (e) {console.warn('Video storage unavailable', e);} }
+
+    function initStarfield() {
+      const canvas = document.getElementById('stars-canvas');
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const stars = Array.from({length: 90}, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.6 + 0.4,
+        alpha: Math.random(),
+        speed: Math.random() * 0.02 + 0.005,
+        color: ['#f4acb7', '#f3c68f', '#ffffff', '#ff9a8b'][Math.floor(Math.random() * 4)]
+      }));
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        stars.forEach(s => {
+          s.alpha += s.speed;
+          const a = Math.abs(Math.sin(s.alpha));
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+          ctx.fillStyle = s.color;
+          ctx.globalAlpha = a * 0.7;
+          ctx.fill();
+        });
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    // -------------------------------------------------------------
+    // INITIALIZATION ON LOAD
+    // -------------------------------------------------------------
+    document.getElementById('our-video-upload')?.addEventListener('change', async e => {const file = e.target.files[0]; if (!file) return; try {await saveVideoBlob(file); setVideoBlob(file);} catch (err) {alert('Could not save this video in browser storage. Try a smaller video.');} });
+    document.getElementById('remove-video')?.addEventListener('click', async () => {await removeVideoBlob(); const player = document.getElementById('our-video-player'); player.removeAttribute('src'); player.load(); if (currentVideoUrl) URL.revokeObjectURL(currentVideoUrl); currentVideoUrl = null; document.getElementById('remove-video').classList.add('hidden');});
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadPersistedState();
+      initStarfield();
+      renderRoadMapMarkers();
+
+      // Set default promise image placeholder
+      const promiseImg = document.getElementById('promises-photo');
+      if (promiseImg) {
+        promiseImg.src = uploadedPhotos[28] || getIllustratedPlaceholderSvg('promises', 'Silk & Thenu');
+      }
+
+      // Initialize all Lucide icons
+      lucide.createIcons();
+    });
+  </script>
+</body>
+
+</html>
