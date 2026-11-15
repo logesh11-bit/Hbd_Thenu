@@ -750,7 +750,7 @@
       </div>
 
       <div id="her-photo-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7"></div>
-      <p class="text-center text-xs text-slate-400 mt-6">Photos and captions are saved in this browser on this device.
+      <p class="text-center text-xs text-slate-400 mt-6">Photos are stored as files in this browser's IndexedDB; captions are saved separately.
       </p>
     </div>
   </section>
@@ -1006,7 +1006,7 @@
         <!-- EXACT PHRASE REQUIRED -->
         <div class="p-4 rounded-2xl bg-crimson/10 border border-crimson/30 my-6">
           <p class="font-handwriting text-3xl sm:text-4xl text-crimson font-bold">
-            “Thenu kutty ku waiting ❤️”
+            “Thenu Purushan waiting ❤️”
           </p>
         </div>
 
@@ -1433,35 +1433,115 @@
     }
 
     // -------------------------------------------------------------
-    // STATE & LOCAL STORAGE (INDEXEDDB FOR RELIABLE IMAGE STORAGE)
+    // PHOTO STORAGE: IndexedDB (large files) + localStorage (tiny text only)
+    // Photos are stored as Blobs, never as base64 strings in localStorage.
     // -------------------------------------------------------------
     let activeMemoryId = 1;
     let visitedStops = new Set([1]);
-    let uploadedPhotos = {}; // id -> dataUrl
+    let uploadedPhotos = {}; // memory id -> array of temporary object URLs
     let mapZoomScale = 1;
 
-    // LocalStorage helper for fallback & visited status
-    function loadPersistedState() {
-      try {
-        const storedPhotos = localStorage.getItem('thenu_silk_photos');
-        if (storedPhotos) {
-          uploadedPhotos = JSON.parse(storedPhotos);
+    const photoDbReady = new Promise((resolve, reject) => {
+      const req = indexedDB.open('thenu_silk_photo_db', 1);
+      req.onupgradeneeded = () => {
+        const db = req.result;
+        if (!db.objectStoreNames.contains('photos')) db.createObjectStore('photos');
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+
+    function photoDbRequest(mode, action, key, value) {
+      return photoDbReady.then(db => new Promise((resolve, reject) => {
+        const tx = db.transaction('photos', mode);
+        const store = tx.objectStore('photos');
+        let req;
+        if (action === 'get') req = store.get(key);
+        else if (action === 'getAllKeys') req = store.getAllKeys();
+        else if (action === 'put') req = store.put(value, key);
+        else if (action === 'delete') req = store.delete(key);
+        else if (action === 'clear') req = store.clear();
+        if (req) {
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(req.error);
+        } else {
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => reject(tx.error);
         }
+      }));
+    }
+
+    async function savePhotoBlob(key, blob) {
+      await photoDbRequest('readwrite', 'put', key, blob);
+    }
+    async function getPhotoBlob(key) {
+      return await photoDbRequest('readonly', 'get', key);
+    }
+    async function deletePhotoBlob(key) {
+      await photoDbRequest('readwrite', 'delete', key);
+    }
+    async function getPhotoKeys() {
+      return await photoDbRequest('readonly', 'getAllKeys');
+    }
+    function photoObjectUrl(blob) {
+      return blob ? URL.createObjectURL(blob) : '';
+    }
+    function normalizePhotoList(value) {
+      if (!value) return [];
+      return Array.isArray(value) ? value : [value];
+    }
+    function memoryPhotoKey(id, index) { return `memory:${id}:${index}`; }
+    function albumPhotoKey(id, index) { return `album:${id}:${index}`; }
+
+    async function loadPersistedState() {
+      try {
         const storedVisited = localStorage.getItem('thenu_silk_visited');
-        if (storedVisited) {
-          visitedStops = new Set(JSON.parse(storedVisited));
+        if (storedVisited) visitedStops = new Set(JSON.parse(storedVisited));
+      } catch (e) {
+        console.warn('Could not load visited-stop state:', e);
+      }
+
+      // Load memory photos from IndexedDB.
+      const keys = await getPhotoKeys();
+      for (const key of keys) {
+        if (typeof key !== 'string' || !key.startsWith('memory:')) continue;
+        const parts = key.split(':');
+        const id = Number(parts[1]), index = Number(parts[2]);
+        const blob = await getPhotoBlob(key);
+        if (!blob) continue;
+        (uploadedPhotos[id] ||= []);
+        uploadedPhotos[id][index] = photoObjectUrl(blob);
+      }
+
+      // One-time migration of older base64 photos from localStorage into IndexedDB.
+      try {
+        const legacy = localStorage.getItem('thenu_silk_photos');
+        if (legacy) {
+          const oldPhotos = JSON.parse(legacy);
+          for (const [id, value] of Object.entries(oldPhotos || {})) {
+            const list = normalizePhotoList(value);
+            for (let i = 0; i < list.length; i++) {
+              if (typeof list[i] !== 'string' || !list[i].startsWith('data:')) continue;
+              const response = await fetch(list[i]);
+              const blob = await response.blob();
+              const key = memoryPhotoKey(id, i);
+              await savePhotoBlob(key, blob);
+              (uploadedPhotos[id] ||= [])[i] = photoObjectUrl(blob);
+            }
+          }
+          localStorage.removeItem('thenu_silk_photos');
         }
       } catch (e) {
-        console.warn('LocalStorage access issue:', e);
+        console.warn('Legacy photo migration could not be completed:', e);
       }
     }
 
     function savePersistedState() {
       try {
-        localStorage.setItem('thenu_silk_photos', JSON.stringify(uploadedPhotos));
+        // Only tiny progress data belongs in localStorage.
         localStorage.setItem('thenu_silk_visited', JSON.stringify([...visitedStops]));
       } catch (e) {
-        console.warn('LocalStorage save issue:', e);
+        console.warn('Could not save visited-stop state:', e);
       }
     }
 
@@ -1475,8 +1555,9 @@
       memories.forEach((mem, index) => {
         const isVisited = visitedStops.has(mem.id);
         const isActive = mem.id === activeMemoryId;
-        const hasPhoto = !!uploadedPhotos[mem.id];
-        const thumbSrc = uploadedPhotos[mem.id] || getIllustratedPlaceholderSvg(mem.defaultSvg, mem.title);
+        const memoryPhotos = normalizePhotoList(uploadedPhotos[mem.id]);
+        const hasPhoto = memoryPhotos.length > 0;
+        const thumbSrc = memoryPhotos[0] || getIllustratedPlaceholderSvg(mem.defaultSvg, mem.title);
 
         const markerEl = document.createElement('div');
         markerEl.id = `map-marker-${mem.id}`;
@@ -1563,7 +1644,7 @@
       const statusBadge = document.getElementById('photo-status-badge');
       const uploadLabel = document.getElementById('upload-btn-label');
 
-      const stopPhotos = Array.isArray(uploadedPhotos[id]) ? uploadedPhotos[id] : (uploadedPhotos[id] ? [uploadedPhotos[id]] : []);
+      const stopPhotos = normalizePhotoList(uploadedPhotos[id]);
       if (stopPhotos.length) {
         photoImg.src = stopPhotos[0];
         removeBtn.classList.remove('hidden');
@@ -1605,7 +1686,7 @@
     }
 
     function showStopPhoto(index) {
-      const photos = Array.isArray(uploadedPhotos[activeMemoryId]) ? uploadedPhotos[activeMemoryId] : [uploadedPhotos[activeMemoryId]];
+      const photos = normalizePhotoList(uploadedPhotos[activeMemoryId]);
       if (photos[index]) document.getElementById('panel-photo-img').src = photos[index];
     }
 
@@ -1662,38 +1743,58 @@
     }
 
     // -------------------------------------------------------------
-    // PHOTO UPLOAD & REMOVE HANDLING (PER-MEMORY ISOLATED)
+    // LARGE PHOTO UPLOADS: save original File/Blob directly to IndexedDB
+    // No base64 conversion, so 200MB+ files do not hit localStorage limits.
     // -------------------------------------------------------------
-    function handlePanelPhotoUpload(event) {
+    async function handlePanelPhotoUpload(event) {
       const files = Array.from(event.target.files || []).filter(f => f.type.startsWith('image/'));
       if (!files.length) return;
-      const existing = Array.isArray(uploadedPhotos[activeMemoryId]) ? uploadedPhotos[activeMemoryId] : (uploadedPhotos[activeMemoryId] ? [uploadedPhotos[activeMemoryId]] : []);
-      Promise.all(files.map(file => new Promise(resolve => {
-        const reader = new FileReader(); reader.onload = e => resolve(e.target.result); reader.readAsDataURL(file);
-      }))).then(dataUrls => {
-        uploadedPhotos[activeMemoryId] = existing.concat(dataUrls);
-        savePersistedState(); selectMemory(activeMemoryId);
-        confetti({particleCount: 30, spread: 60, origin: {y: .6}, colors: ['#f4acb7', '#e0a96d', '#ff7a59']});
-      });
-      event.target.value = '';
-    }
-
-    function removeCurrentPhoto() {
-      delete uploadedPhotos[activeMemoryId];
-      savePersistedState();
-      selectMemory(activeMemoryId);
-    }
-
-    function handleCouplePhotoUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        uploadedPhotos[28] = e.target.result;
+      const id = activeMemoryId;
+      const existing = normalizePhotoList(uploadedPhotos[id]);
+      const input = event.target;
+      try {
+        for (const file of files) {
+          const index = existing.length;
+          await savePhotoBlob(memoryPhotoKey(id, index), file);
+          existing.push(photoObjectUrl(file));
+        }
+        uploadedPhotos[id] = existing;
         savePersistedState();
-        document.getElementById('promises-photo').src = e.target.result;
-      };
-      reader.readAsDataURL(file);
+        selectMemory(id);
+        if (typeof confetti === 'function') confetti({particleCount: 30, spread: 60, origin: {y: .6}, colors: ['#f4acb7', '#e0a96d', '#ff7a59']});
+      } catch (err) {
+        console.error('Photo storage failed:', err);
+        alert('The browser could not store these photos. Check available device storage or try fewer files at once.');
+      } finally {
+        input.value = '';
+      }
+    }
+
+    async function removeCurrentPhoto() {
+      const id = activeMemoryId;
+      const photos = normalizePhotoList(uploadedPhotos[id]);
+      for (let i = 0; i < photos.length; i++) {
+        await deletePhotoBlob(memoryPhotoKey(id, i));
+        if (photos[i]?.startsWith('blob:')) URL.revokeObjectURL(photos[i]);
+      }
+      delete uploadedPhotos[id];
+      savePersistedState();
+      selectMemory(id);
+    }
+
+    async function handleCouplePhotoUpload(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      try {
+        await savePhotoBlob('couple:promises', file);
+        const img = document.getElementById('promises-photo');
+        if (img) img.src = photoObjectUrl(file);
+      } catch (err) {
+        console.error(err);
+        alert('Could not save the couple photo. Please check available browser storage.');
+      } finally {
+        event.target.value = '';
+      }
     }
 
     // -------------------------------------------------------------
@@ -1959,29 +2060,139 @@
     // BACKGROUND CANVAS: FLOATING PARTICLES & STARS
     // -------------------------------------------------------------
     // -------------------------------------------------------------
-    // THENU PHOTO ALBUM: editable captions + local photo persistence
+    // THENU PHOTO ALBUM: captions in localStorage, full-size photos in IndexedDB
+    // Multiple photos per card; no base64/localStorage size restriction.
     // -------------------------------------------------------------
     const herPhotoCards = [
       {id: 'love', title: 'My Love ❤️'}, {id: 'angel', title: 'My Angel 😇'},
       {id: 'wife', title: 'My Wife 💍'}, {id: 'queen', title: 'My Queen 👑'},
       {id: 'happiness', title: 'My Happiness 🥰'}, {id: 'everything', title: 'My Everything ♾️'}
     ];
-    const herPhotoState = JSON.parse(localStorage.getItem('thenu_her_photo_captions') || '{}');
-    function renderHerPhotoGrid() {
-      const grid = document.getElementById('her-photo-grid'); if (!grid) return; grid.innerHTML = '';
-      herPhotoCards.forEach((item, index) => {
-        const saved = herPhotoState[item.id] || {};
-        const card = document.createElement('article'); card.id = 'her-card-' + item.id;
-        card.className = 'bg-parchment rounded-2xl p-4 polaroid-shadow text-slate-900 rotate-0 hover:-rotate-1 transition-transform';
-        card.innerHTML = `<div class="bg-white p-3 shadow-md rounded-lg"><div class="relative aspect-[4/5] bg-gradient-to-br from-rose-100 via-amber-50 to-pink-200 rounded-md overflow-hidden flex items-center justify-center"><img id="her-img-${item.id}" class="w-full h-full object-cover ${saved.photo ? '' : 'hidden'}" alt="${item.title}"><div id="her-empty-${item.id}" class="text-center p-5 ${saved.photo ? 'hidden' : ''}"><div class="text-5xl mb-3">💗</div><p class="font-handwriting text-2xl text-rose-800">Your beautiful photo goes here</p></div></div><div class="pt-4 text-center"><input id="her-caption-${item.id}" class="w-full text-center font-handwriting text-2xl text-crimson font-bold bg-transparent border-b border-dashed border-rose-300 focus:outline-none" value="${escapeHtml(saved.caption || item.title)}" aria-label="Edit photo tagline"><textarea id="her-desc-${item.id}" rows="2" placeholder="Add a little note for this photo..." class="w-full mt-2 text-center text-xs text-stone-600 bg-transparent resize-y border-b border-stone-200 focus:outline-none">${escapeHtml(saved.description || '')}</textarea></div></div><div class="flex gap-2 mt-3"><label class="flex-1 text-center cursor-pointer px-3 py-2 rounded-lg bg-stone-900 text-white text-xs font-semibold">${saved.photo ? 'Replace Photo' : 'Upload Photo'}<input id="her-upload-${item.id}" type="file" accept="image/*" multiple class="hidden"></label><button id="her-remove-${item.id}" class="${saved.photo ? '' : 'hidden'} px-3 py-2 rounded-lg bg-rose-100 text-rose-800 text-xs">Remove</button></div>`;
-        grid.appendChild(card);
-        if (saved.photo) {const img = document.getElementById(`her-img-${item.id}`); img.src = saved.photo;}
-        const saveText = () => {herPhotoState[item.id] = {...(herPhotoState[item.id] || {}), caption: document.getElementById(`her-caption-${item.id}`).value, description: document.getElementById(`her-desc-${item.id}`).value}; localStorage.setItem('thenu_her_photo_captions', JSON.stringify(herPhotoState));};
-        document.getElementById(`her-caption-${item.id}`).addEventListener('input', saveText); document.getElementById(`her-desc-${item.id}`).addEventListener('input', saveText);
-        document.getElementById(`her-upload-${item.id}`).addEventListener('change', e => {const files = Array.from(e.target.files || []); if (!files.length) return; const old = Array.isArray(herPhotoState[item.id]?.photos) ? herPhotoState[item.id].photos : (herPhotoState[item.id]?.photo ? [herPhotoState[item.id].photo] : []); Promise.all(files.map(file => new Promise(resolve => {const r = new FileReader(); r.onload = () => resolve(r.result); r.readAsDataURL(file)}))).then(add => {herPhotoState[item.id] = {...(herPhotoState[item.id] || {}), photos: old.concat(add), photo: old.concat(add)[0], caption: document.getElementById(`her-caption-${item.id}`).value, description: document.getElementById(`her-desc-${item.id}`).value}; try {localStorage.setItem('thenu_her_photo_captions', JSON.stringify(herPhotoState));} catch (err) {alert('These photos are too large for browser storage. Please choose smaller images.'); return;} renderHerPhotoGrid();});});
-        document.getElementById(`her-remove-${item.id}`).addEventListener('click', () => {herPhotoState[item.id] = {...(herPhotoState[item.id] || {}), photo: ''}; localStorage.setItem('thenu_her_photo_captions', JSON.stringify(herPhotoState)); renderHerPhotoGrid();});
-      });
+    let herPhotoState = {};
+    let herPhotoUrls = {};
+
+    function loadHerPhotoText() {
+      try { herPhotoState = JSON.parse(localStorage.getItem('thenu_her_photo_captions') || '{}'); }
+      catch (e) { herPhotoState = {}; }
     }
+    function saveHerPhotoText() {
+      try { localStorage.setItem('thenu_her_photo_captions', JSON.stringify(herPhotoState)); }
+      catch (e) { console.warn('Could not save photo captions:', e); }
+    }
+
+    async function loadHerAlbumPhotos() {
+      const keys = await getPhotoKeys();
+      for (const key of keys) {
+        if (typeof key !== 'string' || !key.startsWith('album:')) continue;
+        const [, id, indexText] = key.split(':');
+        const blob = await getPhotoBlob(key);
+        if (!blob) continue;
+        (herPhotoUrls[id] ||= []);
+        herPhotoUrls[id][Number(indexText)] = photoObjectUrl(blob);
+      }
+
+      // Migrate any photos saved by the previous base64/localStorage version.
+      for (const item of herPhotoCards) {
+        const saved = herPhotoState[item.id] || {};
+        const legacyPhotos = Array.isArray(saved.photos) ? saved.photos : (saved.photo ? [saved.photo] : []);
+        for (let i = 0; i < legacyPhotos.length; i++) {
+          if (herPhotoUrls[item.id]?.[i]) continue;
+          const dataUrl = legacyPhotos[i];
+          if (typeof dataUrl !== 'string' || !dataUrl.startsWith('data:')) continue;
+          const blob = await (await fetch(dataUrl)).blob();
+          await savePhotoBlob(albumPhotoKey(item.id, i), blob);
+          (herPhotoUrls[item.id] ||= [])[i] = photoObjectUrl(blob);
+        }
+        // Remove image payloads from localStorage after successful migration.
+        if (legacyPhotos.length && (herPhotoUrls[item.id] || []).filter(Boolean).length >= legacyPhotos.length) {
+          delete herPhotoState[item.id].photo;
+          delete herPhotoState[item.id].photos;
+        }
+      }
+      saveHerPhotoText();
+    }
+
+    async function renderHerPhotoGrid() {
+      const grid = document.getElementById('her-photo-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      for (const item of herPhotoCards) {
+        const saved = herPhotoState[item.id] || {};
+        const photos = (herPhotoUrls[item.id] || []).filter(Boolean);
+        const firstPhoto = photos[0] || '';
+        const card = document.createElement('article');
+        card.id = 'her-card-' + item.id;
+        card.className = 'bg-parchment rounded-2xl p-4 polaroid-shadow text-slate-900 rotate-0 hover:-rotate-1 transition-transform';
+        card.innerHTML = `<div class="bg-white p-3 shadow-md rounded-lg">
+          <div class="relative aspect-[4/5] bg-gradient-to-br from-rose-100 via-amber-50 to-pink-200 rounded-md overflow-hidden flex items-center justify-center">
+            <img id="her-img-${item.id}" class="w-full h-full object-cover ${firstPhoto ? '' : 'hidden'}" alt="${item.title}">
+            <div id="her-empty-${item.id}" class="text-center p-5 ${firstPhoto ? 'hidden' : ''}">
+              <div class="text-5xl mb-3">💗</div><p class="font-handwriting text-2xl text-rose-800">Your beautiful photo goes here</p>
+            </div>
+            <span id="her-count-${item.id}" class="absolute bottom-2 right-2 rounded-full bg-black/65 text-white text-xs px-3 py-1">${photos.length ? photos.length + ' photos' : ''}</span>
+          </div>
+          <div class="pt-4 text-center">
+            <input id="her-caption-${item.id}" class="w-full text-center font-handwriting text-2xl text-crimson font-bold bg-transparent border-b border-dashed border-rose-300 focus:outline-none" aria-label="Edit photo tagline">
+            <textarea id="her-desc-${item.id}" rows="2" placeholder="Add a little note for this photo..." class="w-full mt-2 text-center text-xs text-stone-600 bg-transparent resize-y border-b border-stone-200 focus:outline-none"></textarea>
+          </div>
+        </div>
+        <div class="flex gap-2 mt-3">
+          <label class="flex-1 text-center cursor-pointer px-3 py-2 rounded-lg bg-stone-900 text-white text-xs font-semibold">Add Photos
+            <input id="her-upload-${item.id}" type="file" accept="image/*" multiple class="hidden">
+          </label>
+          <button id="her-remove-${item.id}" class="${photos.length ? '' : 'hidden'} px-3 py-2 rounded-lg bg-rose-100 text-rose-800 text-xs">Remove All</button>
+        </div>`;
+        grid.appendChild(card);
+
+        const img = document.getElementById(`her-img-${item.id}`);
+        if (firstPhoto) img.src = firstPhoto;
+        document.getElementById(`her-caption-${item.id}`).value = saved.caption || item.title;
+        document.getElementById(`her-desc-${item.id}`).value = saved.description || '';
+
+        const saveText = () => {
+          herPhotoState[item.id] = {
+            ...(herPhotoState[item.id] || {}),
+            caption: document.getElementById(`her-caption-${item.id}`).value,
+            description: document.getElementById(`her-desc-${item.id}`).value
+          };
+          saveHerPhotoText();
+        };
+        document.getElementById(`her-caption-${item.id}`).addEventListener('input', saveText);
+        document.getElementById(`her-desc-${item.id}`).addEventListener('input', saveText);
+
+        document.getElementById(`her-upload-${item.id}`).addEventListener('change', async e => {
+          const files = Array.from(e.target.files || []).filter(f => f.type.startsWith('image/'));
+          if (!files.length) return;
+          const current = herPhotoUrls[item.id] || [];
+          try {
+            for (const file of files) {
+              const index = current.length;
+              await savePhotoBlob(albumPhotoKey(item.id, index), file);
+              current.push(photoObjectUrl(file));
+            }
+            herPhotoUrls[item.id] = current;
+            saveText();
+            await renderHerPhotoGrid();
+          } catch (err) {
+            console.error('Album photo storage failed:', err);
+            alert('The browser could not store these photos. Try uploading fewer files at a time or check device storage.');
+          } finally {
+            e.target.value = '';
+          }
+        });
+
+        document.getElementById(`her-remove-${item.id}`).addEventListener('click', async () => {
+          const current = herPhotoUrls[item.id] || [];
+          for (let i = 0; i < current.length; i++) {
+            await deletePhotoBlob(albumPhotoKey(item.id, i));
+            if (current[i]?.startsWith('blob:')) URL.revokeObjectURL(current[i]);
+          }
+          herPhotoUrls[item.id] = [];
+          await renderHerPhotoGrid();
+        });
+      }
+    }
+
     // -------------------------------------------------------------
     // CANDLE BURST: one candle per photo card
     // -------------------------------------------------------------
@@ -2051,7 +2262,14 @@
     async function removeVideoBlob() {const db = await videoDbReady; return new Promise((resolve, reject) => {const tx = db.transaction('assets', 'readwrite'); tx.objectStore('assets').delete('birthday-video'); tx.oncomplete = resolve; tx.onerror = () => reject(tx.error);});}
     let currentVideoUrl = null;
     function setVideoBlob(blob) {const player = document.getElementById('our-video-player'); if (currentVideoUrl) URL.revokeObjectURL(currentVideoUrl); currentVideoUrl = URL.createObjectURL(blob); player.src = currentVideoUrl; document.getElementById('remove-video').classList.remove('hidden');}
-    async function initPersonalMedia() {renderHerPhotoGrid(); renderCandles(); try {const blob = await loadVideoBlob(); if (blob) setVideoBlob(blob);} catch (e) {console.warn('Video storage unavailable', e);} }
+    async function initPersonalMedia() {
+      loadHerPhotoText();
+      try { await loadHerAlbumPhotos(); } catch (e) { console.warn('Album photo storage unavailable:', e); }
+      await renderHerPhotoGrid();
+      renderCandles();
+      try { const blob = await loadVideoBlob(); if (blob) setVideoBlob(blob); }
+      catch (e) { console.warn('Video storage unavailable', e); }
+    }
 
     function initStarfield() {
       const canvas = document.getElementById('stars-canvas');
@@ -2095,18 +2313,20 @@
     document.getElementById('our-video-upload')?.addEventListener('change', async e => {const file = e.target.files[0]; if (!file) return; try {await saveVideoBlob(file); setVideoBlob(file);} catch (err) {alert('Could not save this video in browser storage. Try a smaller video.');} });
     document.getElementById('remove-video')?.addEventListener('click', async () => {await removeVideoBlob(); const player = document.getElementById('our-video-player'); player.removeAttribute('src'); player.load(); if (currentVideoUrl) URL.revokeObjectURL(currentVideoUrl); currentVideoUrl = null; document.getElementById('remove-video').classList.add('hidden');});
 
-    window.addEventListener('DOMContentLoaded', () => {
-      loadPersistedState();
+    window.addEventListener('DOMContentLoaded', async () => {
+      try { await loadPersistedState(); }
+      catch (e) { console.error('Could not restore saved photos:', e); }
       initStarfield();
       renderRoadMapMarkers();
 
-      // Set default promise image placeholder
+      // Restore the couple photo from IndexedDB.
       const promiseImg = document.getElementById('promises-photo');
       if (promiseImg) {
-        promiseImg.src = uploadedPhotos[28] || getIllustratedPlaceholderSvg('promises', 'Silk & Thenu');
+        const coupleBlob = await getPhotoBlob('couple:promises').catch(() => null);
+        promiseImg.src = coupleBlob ? photoObjectUrl(coupleBlob) : getIllustratedPlaceholderSvg('promises', 'Silk & Thenu');
       }
 
-      // Initialize all Lucide icons
+      await initPersonalMedia();
       lucide.createIcons();
     });
   </script>
