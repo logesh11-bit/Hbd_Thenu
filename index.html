@@ -44,16 +44,16 @@
           },
           keyframes: {
             float: {
-              '0%, 100%': {transform: 'translateY(0px)'},
-              '50%': {transform: 'translateY(-10px)'},
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
             },
             pulseGlow: {
-              '0%, 100%': {opacity: '0.4', transform: 'scale(1)'},
-              '50%': {opacity: '0.9', transform: 'scale(1.08)'},
+              '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+              '50%': { opacity: '0.9', transform: 'scale(1.08)' },
             },
             shimmer: {
-              '0%': {backgroundPosition: '-200% 0'},
-              '100%': {backgroundPosition: '200% 0'},
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
             }
           },
           animation: {
@@ -145,11 +145,11 @@
       display: none;
     }
 
-    \n .candle.balloon .stick {
+    .candle.balloon .stick {
       position: relative;
     }
 
-    \n .candle.balloon .stick:after {
+    .candle.balloon .stick:after {
       content: "";
       position: absolute;
       bottom: -7px;
@@ -159,26 +159,26 @@
       background: #f8d9e5;
     }
 
-    \n .candle.balloon.burst .stick {
+    .candle.balloon.burst .stick {
       animation: balloonPop .35s ease-out forwards;
     }
 
-    \n @keyframes balloonPop {
+    @keyframes balloonPop {
       0% {
-        transform: scale(1)
+        transform: scale(1);
       }
 
       30% {
-        transform: scale(1.35)
+        transform: scale(1.35);
       }
 
       100% {
         transform: scale(0);
-        opacity: 0
+        opacity: 0;
       }
     }
 
-    \n .candle {
+    .candle {
       cursor: pointer;
       padding: 4px 3px 0;
       -webkit-tap-highlight-color: transparent;
@@ -392,9 +392,7 @@
     </button>
     <!-- Hidden standard Audio element + Synthesizer Fallback -->
     <audio id="bg-audio" loop preload="auto">
-      <source
-        src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-moment-113524.mp3"
-        type="audio/mpeg">
+      <source src="music/birthday-song.mp3" type="audio/mpeg">
     </audio>
   </div>
 
@@ -722,8 +720,8 @@
       <div class="text-center max-w-3xl mx-auto mb-10">
         <span class="text-xs font-semibold uppercase tracking-[0.25em] text-rosy">A gallery made just for you</span>
         <h2 class="font-handwriting text-4xl md:text-6xl text-softblush mt-2">My Beautiful Thenu ❤️</h2>
-        <p class="font-serif italic text-slate-300 mt-3">Every picture deserves a little love note. Upload your
-          favourite photos and edit each caption.</p>
+        <p class="font-serif italic text-slate-300 mt-3">Every picture deserves a little love note. Add your files to
+          the photos folder and edit the LOCAL_MEDIA paths to share them with Thenu.</p>
       </div>
       <!-- Candle burst: one candle per photo -->
       <div id="candle-stage" class="relative max-w-sm mx-auto mb-14 text-center">
@@ -750,7 +748,8 @@
       </div>
 
       <div id="her-photo-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7"></div>
-      <p class="text-center text-xs text-slate-400 mt-6">Photos are stored as files in this browser's IndexedDB; captions are saved separately.
+      <p class="text-center text-xs text-slate-400 mt-6">Shared photos load from your website's <code>photos/</code>
+        folder. Edit the LOCAL_MEDIA paths in the JavaScript to add or change them.
       </p>
     </div>
   </section>
@@ -764,7 +763,10 @@
       <h2 class="font-handwriting text-4xl md:text-6xl text-softblush mt-2 mb-3">Our Moments in Motion 🎞️</h2>
       <p class="font-serif italic text-slate-300 mb-8">After all the pictures, here is a moving memory just for you.</p>
       <div class="bg-parchment p-3 md:p-5 rounded-3xl polaroid-shadow">
-        <video id="our-video-player" class="w-full max-h-[65vh] rounded-xl bg-black" controls playsinline></video>
+        <video id="our-video-player" class="w-full max-h-[65vh] rounded-xl bg-black" src="videos/our-memories.mp4"
+          controls playsinline preload="metadata">
+          Your browser does not support HTML video.
+        </video>
         <div class="flex flex-col sm:flex-row gap-3 items-center justify-between p-3 text-slate-900">
           <input id="video-title"
             class="w-full sm:flex-1 bg-transparent border-b border-stone-300 px-2 py-2 font-handwriting text-2xl text-crimson text-center sm:text-left"
@@ -776,8 +778,9 @@
             Video</button>
         </div>
       </div>
-      <p class="text-xs text-slate-400 mt-4">Choose an MP4 or other browser-supported video. Large videos are kept in
-        this browser using IndexedDB.</p>
+      <p class="text-xs text-slate-400 mt-4">For a video everyone can see, place it in
+        <code>videos/our-memories.mp4</code> and keep that file in your website folder. Browser uploads are only local
+        to your device.</p>
     </div>
   </section>
 
@@ -920,7 +923,8 @@
       <!-- Couple Photo frame in promises -->
       <div class="mt-12 max-w-sm mx-auto bg-white p-4 rounded-2xl polaroid-shadow text-center transform rotate-1">
         <div class="w-full h-52 bg-slate-800 rounded-lg overflow-hidden flex items-center justify-center relative">
-          <img id="promises-photo" src="" alt="Us Together" class="w-full h-full object-cover">
+          <img id="promises-photo" src="photos/promises/our-photo.jpg" alt="Us Together"
+            class="w-full h-full object-cover">
           <label
             class="absolute inset-0 bg-black/40 hover:bg-black/60 cursor-pointer flex flex-col items-center justify-center text-white text-xs opacity-0 hover:opacity-100 transition">
             <i data-lucide="camera" class="w-6 h-6 mb-1 text-rosy"></i>
@@ -1071,7 +1075,8 @@
               class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer text-white p-4 text-center">
               <i data-lucide="camera" class="w-8 h-8 text-rosy mb-1"></i>
               <span class="text-xs font-semibold">Click to Upload Our Photo</span>
-              <span class="text-[10px] text-slate-300 mt-0.5">Supports JPG, PNG, WEBP (Saved Locally)</span>
+              <span class="text-[10px] text-slate-300 mt-0.5">Browser upload is local only. Use LOCAL_MEDIA paths for
+                sharing.</span>
               <input type="file" id="panel-file-input" accept="image/*" multiple class="hidden"
                 onchange="handlePanelPhotoUpload(event)">
             </label>
@@ -1154,7 +1159,7 @@
         id: 1,
         title: "Munnar Train: The Beginning",
         date: "College IV Trip",
-        coords: {x: 120, y: 70},
+        coords: { x: 120, y: 70 },
         caption: "Where our story first began 🚂",
         story: "Our story began during our college IV trip to Munnar. I was impressed when I first saw you, but you were already committed to someone else at that time. We still spent a lot of time together during the trip.",
         defaultSvg: "train",
@@ -1165,7 +1170,7 @@
         id: 2,
         title: "Wonderla: The College Trip",
         date: "College Trip",
-        coords: {x: 350, y: 182},
+        coords: { x: 350, y: 182 },
         caption: "A day I still remember 🎢",
         story: "Wonderla was one of the special memories from our college trip. We spent time together and created memories that stayed with me.",
         defaultSvg: "coaster",
@@ -1176,7 +1181,7 @@
         id: 3,
         title: "The Return Train: Two Hours Together",
         date: "Return Journey",
-        coords: {x: 600, y: 294},
+        coords: { x: 600, y: 294 },
         caption: "Two hours that felt too short ❤️",
         story: "On our return train journey, everyone shared their past love stories. We shared ours too. Later, everyone else fell asleep, but we stayed awake and talked alone for more than two hours. That conversation became one of those unexpected memories I would never forget.",
         defaultSvg: "nighttrain",
@@ -1187,7 +1192,7 @@
         id: 4,
         title: "College Days: Our Fun-Enemy Era",
         date: "College Days",
-        coords: {x: 350, y: 406},
+        coords: { x: 350, y: 406 },
         caption: "From fighting to falling ❤️",
         story: "During college, we became fun enemies. We teased each other, fought over little things, and constantly pulled each other's legs. Sometimes, I even made you cry. Back then, neither of us knew where our story would eventually lead.",
         defaultSvg: "college",
@@ -1198,7 +1203,7 @@
         id: 5,
         title: "Finding Our Way Back",
         date: "PG Studies Era",
-        coords: {x: 120, y: 518},
+        coords: { x: 120, y: 518 },
         caption: "The conversation that started again 💬",
         story: "Later, we were both doing our PG studies. We randomly started texting again. You had come out of your previous relationship, and I was also recovering from mine. We gradually became good friends again. Sometimes, life brings the right person back into our story when we least expect it.",
         defaultSvg: "messages",
@@ -1209,7 +1214,7 @@
         id: 6,
         title: "Tiger Cave: January 2025",
         date: "January 2025",
-        coords: {x: 350, y: 630},
+        coords: { x: 350, y: 630 },
         caption: "One selfie, one unforgettable memory 📸",
         story: "During our friends' trip to Tiger Cave in Mahabalipuram in January 2025, I sat on your lap, and we took a selfie together. It was a special moment that became part of our story.",
         defaultSvg: "tigercave",
@@ -1220,7 +1225,7 @@
         id: 7,
         title: "Queens Land",
         date: "March 26, 2025",
-        coords: {x: 600, y: 742},
+        coords: { x: 600, y: 742 },
         caption: "Queens Land memories 🎢",
         story: "A day of fun and laughter with you at Queens Land. I want to keep every little moment from this day close to my heart.",
         defaultSvg: "coaster",
@@ -1231,7 +1236,7 @@
         id: 8,
         title: "Tiger Cave: April 5, 2025",
         date: "April 5, 2025",
-        coords: {x: 350, y: 854},
+        coords: { x: 350, y: 854 },
         caption: "Another adventure with you ❤️",
         story: "Another Tiger Cave memory to keep in our little collection. Every visit with you becomes its own special chapter.",
         defaultSvg: "tigercave",
@@ -1242,7 +1247,7 @@
         id: 9,
         title: "Kovalam: April 2025",
         date: "April 2025",
-        coords: {x: 120, y: 966},
+        coords: { x: 120, y: 966 },
         caption: "The hug I will always remember 🫂",
         story: "We went to Kovalam for our friend's birthday. It was the first time you sat on my bike for a ride. While returning, you proposed to me. I wasn't ready for another relationship, so I told you I wasn't ready. But I hugged you for the first time there, and we both became emotional. It was a difficult, honest, and unforgettable moment for both of us.",
         defaultSvg: "coastal",
@@ -1253,7 +1258,7 @@
         id: 10,
         title: "Beach: June 15, 2025",
         date: "June 15, 2025",
-        coords: {x: 350, y: 1078},
+        coords: { x: 350, y: 1078 },
         caption: "My favourite view is you 🌊",
         story: "A beach day with you, the sea breeze, and another memory I never want to forget.",
         defaultSvg: "coastal",
@@ -1264,7 +1269,7 @@
         id: 11,
         title: "Chitlapakkam: August 2, 2025",
         date: "August 2, 2025",
-        coords: {x: 600, y: 1190},
+        coords: { x: 600, y: 1190 },
         caption: "A little moment, a lot of love 💗",
         story: "A Chitlapakkam memory worth keeping in our story. I want this moment to have its own place on our road.",
         defaultSvg: "lake",
@@ -1275,7 +1280,7 @@
         id: 12,
         title: "Chitlapakkam Lake: August 10, 2025",
         date: "August 10, 2025",
-        coords: {x: 350, y: 1302},
+        coords: { x: 350, y: 1302 },
         caption: "The day our forever began ❤️",
         story: "On August 10, 2025, you asked me out on our first date at Chitlapakkam Lake. We spent some quiet time together. When I was dropping you off, you asked me for a hug. I found a place, and we hugged. I asked you, 'Do you really want me?' You said yes and kissed me. I kissed you too, and I finally accepted your love. That was the day we officially became a couple.",
         defaultSvg: "lake",
@@ -1287,7 +1292,7 @@
         id: 13,
         title: "Our First Movie: December 6, 2025",
         date: "December 6, 2025",
-        coords: {x: 120, y: 1414},
+        coords: { x: 120, y: 1414 },
         caption: "Our first movie date 🎬",
         story: "Our first movie together. One more first, one more memory that belongs only to us.",
         defaultSvg: "nighttrain",
@@ -1298,7 +1303,7 @@
         id: 14,
         title: "Couple Tiger Cave",
         date: "March 26, 2026",
-        coords: {x: 350, y: 1526},
+        coords: { x: 350, y: 1526 },
         caption: "Together is my favourite place 💕",
         story: "Tiger Cave together as a couple. A place with memories from different chapters, now with a new meaning because we were there together.",
         defaultSvg: "cavelove",
@@ -1309,7 +1314,7 @@
         id: 15,
         title: "The Dam: May 8, 2026",
         date: "May 8, 2026",
-        coords: {x: 600, y: 1638},
+        coords: { x: 600, y: 1638 },
         caption: "Peace feels like being with you 💙",
         story: "A day by the dam, adding another peaceful memory to our journey.",
         defaultSvg: "dam",
@@ -1320,7 +1325,7 @@
         id: 16,
         title: "Our Train Trip: June 2, 2026",
         date: "June 2, 2026",
-        coords: {x: 350, y: 1750},
+        coords: { x: 350, y: 1750 },
         caption: "Next stop: more memories 🚂",
         story: "Another train journey together. I hope we keep collecting journeys, conversations, and little moments like this.",
         defaultSvg: "train",
@@ -1331,7 +1336,7 @@
         id: 17,
         title: "Second Tiger Cave: June 4, 2026",
         date: "June 4, 2026",
-        coords: {x: 120, y: 1862},
+        coords: { x: 120, y: 1862 },
         caption: "A place made special by you 📸",
         story: "Our second Tiger Cave memory in this chapter. Two visits, countless little things to remember.",
         defaultSvg: "tigercave",
@@ -1342,7 +1347,7 @@
         id: 18,
         title: "Farming Land Days",
         date: "July 3, 6 & 7, 2026",
-        coords: {x: 350, y: 1974},
+        coords: { x: 350, y: 1974 },
         caption: "Simple days, full heart 🌿",
         story: "Three days at our farming land: July 3, 6, and 7. Simple moments together that mean more than words can say.",
         defaultSvg: "farm",
@@ -1353,7 +1358,7 @@
         id: 19,
         title: "Our Bike Rides",
         date: "July 15, 18, 25 & 31; August 3, 8 & 15 (2026)",
-        coords: {x: 600, y: 2086},
+        coords: { x: 600, y: 2086 },
         caption: "Anywhere with you 🏍️",
         story: "All those bike rides on July 15, 18, 25, and 31, and August 3, 8, and 15. Every ride is another reason to love the journey with you.",
         defaultSvg: "bike",
@@ -1364,7 +1369,7 @@
         id: 20,
         title: "Our Bus Trips",
         date: "September 15 & October 1 (2026)",
-        coords: {x: 350, y: 2198},
+        coords: { x: 350, y: 2198 },
         caption: "Every journey feels better with you 🚌",
         story: "Our bus trips on September 15 and October 1. Even an ordinary journey becomes special when I get to share it with you.",
         defaultSvg: "bus",
@@ -1375,7 +1380,7 @@
         id: 21,
         title: "The Final Destination: Happy Birthday",
         date: "16 November",
-        coords: {x: 600, y: 2534},
+        coords: { x: 600, y: 2534 },
         caption: "Your magical birthday finale 🎉",
         story: "Happy Birthday, Poorvaja (Thenu)! To the girl on the train, the friend who returned, and my forever love. Click below to unwrap your last surprise!",
         defaultSvg: "cake",
@@ -1386,6 +1391,60 @@
       }
 
     ];
+
+    // =============================================================
+    // SHARED WEBSITE MEDIA PATHS (EDIT THESE FILE NAMES)
+    // =============================================================
+    // Keep the photos/videos/music folders beside index.html.
+    // These relative src paths are published with GitHub Pages, so
+    // everyone opening your website can see the same media.
+    // Add one or more images to each array. Supported: JPG, PNG, WEBP.
+    const LOCAL_MEDIA = {
+      roadmap: {
+        1: ["1.jpg"],
+        2: ["2.jpg"],
+        3: ["3.jpg"],
+        4: ["4.jpg"],
+        5: ["5.jpg"],
+        6: ["6.jpg"],
+        7: ["7.jpg"],
+        8: ["8.jpg"],
+        9: ["9.jpg"],
+        10: ["10.jpg"],
+        11: ["11.jpg"],
+        12: ["12.jpg"],
+        13: ["13.jpg"],
+        14: ["14.jpg"],
+        15: ["15.jpg"],
+        16: ["16.jpg"],
+        17: ["17.jpg"],
+        18: ["18.jpg"],
+        19: ["19.jpg"],
+        20: ["20.jpg"],
+        21: ["21.jpg"]
+      },
+      gallery: {
+        love: ["love.png"],
+        angel: ["angel.png"],
+        wife: ["wife.png"],
+        queen: ["queen.png"],
+        happiness: ["happiness.png"],
+        everything: ["everything.png"]
+      },
+      couplePhoto: "couple.png",
+      video: "Thenu-video.mp4",
+      music: "Happy-Birthday.mp3"
+    };
+
+    function getLocalMemoryPhotos(id) {
+      return (LOCAL_MEDIA.roadmap[id] || []).filter(Boolean);
+    }
+    function getMemoryPhotos(id) {
+      return [...getLocalMemoryPhotos(id), ...normalizePhotoList(uploadedPhotos[id])];
+    }
+    function getLocalGalleryPhotos(id) {
+      return (LOCAL_MEDIA.gallery[id] || []).filter(Boolean);
+    }
 
     // SVG Illustrated Placeholders Generator
     function getIllustratedPlaceholderSvg(type, title) {
@@ -1555,7 +1614,7 @@
       memories.forEach((mem, index) => {
         const isVisited = visitedStops.has(mem.id);
         const isActive = mem.id === activeMemoryId;
-        const memoryPhotos = normalizePhotoList(uploadedPhotos[mem.id]);
+        const memoryPhotos = getMemoryPhotos(mem.id);
         const hasPhoto = memoryPhotos.length > 0;
         const thumbSrc = memoryPhotos[0] || getIllustratedPlaceholderSvg(mem.defaultSvg, mem.title);
 
@@ -1606,7 +1665,7 @@
       // Draw one continuous, smooth S-shaped road through every memory in date order.
       const svg = document.querySelector('#map-canvas-inner svg');
       if (svg && memories.length) {
-        const points = memories.map(m => ({x: m.coords.x, y: m.coords.y}));
+        const points = memories.map(m => ({ x: m.coords.x, y: m.coords.y }));
         let d = `M ${points[0].x} ${points[0].y}`;
         for (let i = 0; i < points.length - 1; i++) {
           const a = points[i], b = points[i + 1];
@@ -1644,14 +1703,18 @@
       const statusBadge = document.getElementById('photo-status-badge');
       const uploadLabel = document.getElementById('upload-btn-label');
 
-      const stopPhotos = normalizePhotoList(uploadedPhotos[id]);
+      const localStopPhotos = getLocalMemoryPhotos(id);
+      const browserStopPhotos = normalizePhotoList(uploadedPhotos[id]);
+      const stopPhotos = [...localStopPhotos, ...browserStopPhotos];
       if (stopPhotos.length) {
+        photoImg.onerror = () => { photoImg.onerror = null; photoImg.src = getIllustratedPlaceholderSvg(mem.defaultSvg, mem.title); };
         photoImg.src = stopPhotos[0];
-        removeBtn.classList.remove('hidden');
-        statusBadge.textContent = `${stopPhotos.length} photo${stopPhotos.length === 1 ? '' : 's'} uploaded ❤️`;
+        removeBtn.classList.toggle('hidden', browserStopPhotos.length === 0);
+        statusBadge.textContent = `${stopPhotos.length} shared/local photo${stopPhotos.length === 1 ? '' : 's'} ❤️`;
         statusBadge.className = 'text-[11px] text-emerald-600 font-semibold';
         uploadLabel.textContent = 'Replace Photo';
       } else {
+        photoImg.onerror = null;
         photoImg.src = getIllustratedPlaceholderSvg(mem.defaultSvg, mem.title);
         removeBtn.classList.add('hidden');
         statusBadge.textContent = 'Illustrated placeholder';
@@ -1673,7 +1736,7 @@
         if (mem.section) {
           gotoBtn.textContent = mem.sectionLabel;
           gotoBtn.classList.remove('hidden');
-          gotoBtn.onclick = () => {closeMemoryModal(false); goToSection(mem.section);};
+          gotoBtn.onclick = () => { closeMemoryModal(false); goToSection(mem.section); };
         } else {
           gotoBtn.classList.add('hidden');
         }
@@ -1686,8 +1749,13 @@
     }
 
     function showStopPhoto(index) {
-      const photos = normalizePhotoList(uploadedPhotos[activeMemoryId]);
-      if (photos[index]) document.getElementById('panel-photo-img').src = photos[index];
+      const photos = getMemoryPhotos(activeMemoryId);
+      if (photos[index]) {
+        const img = document.getElementById('panel-photo-img');
+        const mem = memories.find(m => m.id === activeMemoryId);
+        img.onerror = () => { img.onerror = null; img.src = getIllustratedPlaceholderSvg(mem.defaultSvg, mem.title); };
+        img.src = photos[index];
+      }
     }
 
     function openMemoryModal() {
@@ -1707,10 +1775,10 @@
       document.body.style.overflow = '';
       if (recenter) {
         const marker = document.getElementById(`map-marker-${activeMemoryId}`);
-        if (marker) marker.scrollIntoView({behavior: 'smooth', block: 'center'});
+        if (marker) marker.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
-    document.addEventListener('keydown', e => {if (e.key === 'Escape') closeMemoryModal();});
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMemoryModal(); });
 
     function navigateMemory(delta) {
       let idx = memories.findIndex(m => m.id === activeMemoryId) + delta;
@@ -1761,7 +1829,7 @@
         uploadedPhotos[id] = existing;
         savePersistedState();
         selectMemory(id);
-        if (typeof confetti === 'function') confetti({particleCount: 30, spread: 60, origin: {y: .6}, colors: ['#f4acb7', '#e0a96d', '#ff7a59']});
+        if (typeof confetti === 'function') confetti({ particleCount: 30, spread: 60, origin: { y: .6 }, colors: ['#f4acb7', '#e0a96d', '#ff7a59'] });
       } catch (err) {
         console.error('Photo storage failed:', err);
         alert('The browser could not store these photos. Check available device storage or try fewer files at once.');
@@ -1833,12 +1901,12 @@
       box.style.transform = 'translateY(-18px) rotate(-7deg) scale(1.12)';
       box.style.opacity = '0';
       if (typeof confetti === 'function') {
-        confetti({particleCount: 110, spread: 85, origin: {y: .55}, colors: ['#f4acb7', '#ffcf8a', '#ffffff', '#ff7a59']});
+        confetti({ particleCount: 110, spread: 85, origin: { y: .55 }, colors: ['#f4acb7', '#ffcf8a', '#ffffff', '#ff7a59'] });
       }
       setTimeout(() => {
         document.getElementById('stage-gift-intro').classList.add('hidden');
         document.getElementById('stage-envelope').classList.remove('hidden');
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         if (note) note.classList.remove('hidden');
       }, 650);
     }
@@ -1864,7 +1932,7 @@
       confetti({
         particleCount: 50,
         spread: 70,
-        origin: {y: 0.5},
+        origin: { y: 0.5 },
         colors: ['#f4acb7', '#ff7a59', '#e0a96d', '#ffffff']
       });
 
@@ -1889,7 +1957,7 @@
       document.getElementById('site-nav').classList.remove('hidden');
 
       // Scroll to roadmap view
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       selectMemory(1);
       initPersonalMedia();
       lucide.createIcons();
@@ -1898,7 +1966,7 @@
     function goToSection(sectionId) {
       const el = document.getElementById(sectionId);
       if (el) {
-        el.scrollIntoView({behavior: 'smooth'});
+        el.scrollIntoView({ behavior: 'smooth' });
       }
     }
 
@@ -1907,7 +1975,7 @@
     // -------------------------------------------------------------
     let finalCandlesBlown = false;
     function birthdayCandleBlow() {
-      if (finalCandlesBlown) {triggerOpenGift(); return;}
+      if (finalCandlesBlown) { triggerOpenGift(); return; }
       finalCandlesBlown = true;
       const cake = document.getElementById('final-cake');
       cake.innerHTML = '💨💨💨🎂💨💨💨';
@@ -1915,13 +1983,13 @@
       document.getElementById('final-cake-note').textContent = 'Wish made… Happy Birthday, Thenu! ❤️';
       const btn = document.querySelector('#stage-birthday button[onclick="triggerOpenGift()"]');
       if (btn) btn.innerHTML = '<span>Open Your Last Surprise 🎁</span>';
-      confetti({particleCount: 90, spread: 90, origin: {y: .5}, colors: ['#f4acb7', '#ffcf8a', '#ffffff']});
+      confetti({ particleCount: 90, spread: 90, origin: { y: .5 }, colors: ['#f4acb7', '#ffcf8a', '#ffffff'] });
       setTimeout(triggerOpenGift, 900);
     }
     function triggerOpenGift() {
       const card = document.getElementById('final-surprise-card');
       card.classList.remove('hidden');
-      card.scrollIntoView({behavior: 'smooth'});
+      card.scrollIntoView({ behavior: 'smooth' });
 
       // Multi-angle fireworks celebration confetti
       const duration = 4.5 * 1000;
@@ -1932,14 +2000,14 @@
           particleCount: 7,
           angle: 60,
           spread: 55,
-          origin: {x: 0},
+          origin: { x: 0 },
           colors: ['#ff7a59', '#f4acb7', '#e0a96d', '#9d0208']
         });
         confetti({
           particleCount: 7,
           angle: 120,
           spread: 55,
-          origin: {x: 1},
+          origin: { x: 1 },
           colors: ['#ff7a59', '#f4acb7', '#e0a96d', '#9d0208']
         });
 
@@ -1950,7 +2018,7 @@
     }
 
     function replaySurprise() {
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(() => {
         isEnvelopeOpened = false;
         document.getElementById('stage-envelope').classList.remove('hidden');
@@ -2064,9 +2132,9 @@
     // Multiple photos per card; no base64/localStorage size restriction.
     // -------------------------------------------------------------
     const herPhotoCards = [
-      {id: 'love', title: 'My Love ❤️'}, {id: 'angel', title: 'My Angel 😇'},
-      {id: 'wife', title: 'My Wife 💍'}, {id: 'queen', title: 'My Queen 👑'},
-      {id: 'happiness', title: 'My Happiness 🥰'}, {id: 'everything', title: 'My Everything ♾️'}
+      { id: 'love', title: 'My Love ❤️' }, { id: 'angel', title: 'My Angel 😇' },
+      { id: 'wife', title: 'My Wife 💍' }, { id: 'queen', title: 'My Queen 👑' },
+      { id: 'happiness', title: 'My Happiness 🥰' }, { id: 'everything', title: 'My Everything ♾️' }
     ];
     let herPhotoState = {};
     let herPhotoUrls = {};
@@ -2118,7 +2186,8 @@
       grid.innerHTML = '';
       for (const item of herPhotoCards) {
         const saved = herPhotoState[item.id] || {};
-        const photos = (herPhotoUrls[item.id] || []).filter(Boolean);
+        const browserPhotos = (herPhotoUrls[item.id] || []).filter(Boolean);
+        const photos = [...getLocalGalleryPhotos(item.id), ...browserPhotos];
         const firstPhoto = photos[0] || '';
         const card = document.createElement('article');
         card.id = 'her-card-' + item.id;
@@ -2140,12 +2209,18 @@
           <label class="flex-1 text-center cursor-pointer px-3 py-2 rounded-lg bg-stone-900 text-white text-xs font-semibold">Add Photos
             <input id="her-upload-${item.id}" type="file" accept="image/*" multiple class="hidden">
           </label>
-          <button id="her-remove-${item.id}" class="${photos.length ? '' : 'hidden'} px-3 py-2 rounded-lg bg-rose-100 text-rose-800 text-xs">Remove All</button>
+          <button id="her-remove-${item.id}" class="${browserPhotos.length ? '' : 'hidden'} px-3 py-2 rounded-lg bg-rose-100 text-rose-800 text-xs">Remove Browser Uploads</button>
         </div>`;
         grid.appendChild(card);
 
         const img = document.getElementById(`her-img-${item.id}`);
-        if (firstPhoto) img.src = firstPhoto;
+        if (firstPhoto) {
+          img.onerror = () => {
+            img.classList.add('hidden');
+            document.getElementById(`her-empty-${item.id}`)?.classList.remove('hidden');
+          };
+          img.src = firstPhoto;
+        }
         document.getElementById(`her-caption-${item.id}`).value = saved.caption || item.title;
         document.getElementById(`her-desc-${item.id}`).value = saved.description || '';
 
@@ -2225,14 +2300,14 @@
         confetti({
           particleCount: 46, spread: 360, startVelocity: 24, gravity: .55, ticks: 80, scalar: .9,
           shapes: ['star', 'circle'], colors: ['#ffd27a', '#ffb347', '#f4acb7', '#fff3c4', '#ffffff'],
-          origin: {x: (r.left + r.width / 2) / window.innerWidth, y: (r.top + r.height / 2) / window.innerHeight}
+          origin: { x: (r.left + r.width / 2) / window.innerWidth, y: (r.top + r.height / 2) / window.innerHeight }
         });
       }
       const last = burstCandles.size === herPhotoCards.length;
       const card = document.getElementById(`her-card-${id}`);
       if (card) {
         card.classList.remove('card-pop'); void card.offsetWidth; card.classList.add('card-pop');
-        if (scroll && !last) setTimeout(() => card.scrollIntoView({behavior: 'smooth', block: 'center'}), 450);
+        if (scroll && !last) setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 450);
       }
       if (last) finishCandles();
     }
@@ -2246,29 +2321,35 @@
         document.getElementById('blow-all-btn')?.classList.add('hidden');
         document.getElementById('relight-btn')?.classList.remove('hidden');
         if (typeof confetti === 'function') {
-          confetti({particleCount: 140, spread: 100, origin: {y: .45}, colors: ['#f4acb7', '#ffcf8a', '#ffffff', '#ff7a59']});
-          confetti({particleCount: 60, angle: 60, spread: 60, origin: {x: 0, y: .6}});
-          confetti({particleCount: 60, angle: 120, spread: 60, origin: {x: 1, y: .6}});
+          confetti({ particleCount: 140, spread: 100, origin: { y: .45 }, colors: ['#f4acb7', '#ffcf8a', '#ffffff', '#ff7a59'] });
+          confetti({ particleCount: 60, angle: 60, spread: 60, origin: { x: 0, y: .6 } });
+          confetti({ particleCount: 60, angle: 120, spread: 60, origin: { x: 1, y: .6 } });
         }
       }, 500);
     }
 
-    function escapeHtml(value) {return String(value).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));}
+    function escapeHtml(value) { return String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
     // Store the uploaded video as a Blob in IndexedDB so it can survive refreshes.
-    const videoDbReady = new Promise((resolve, reject) => {const req = indexedDB.open('thenu_silk_video_db', 1); req.onupgradeneeded = () => req.result.createObjectStore('assets'); req.onsuccess = () => resolve(req.result); req.onerror = () => reject(req.error);});
-    async function saveVideoBlob(blob) {const db = await videoDbReady; return new Promise((resolve, reject) => {const tx = db.transaction('assets', 'readwrite'); tx.objectStore('assets').put(blob, 'birthday-video'); tx.oncomplete = resolve; tx.onerror = () => reject(tx.error);});}
-    async function loadVideoBlob() {const db = await videoDbReady; return new Promise((resolve, reject) => {const req = db.transaction('assets').objectStore('assets').get('birthday-video'); req.onsuccess = () => resolve(req.result || null); req.onerror = () => reject(req.error);});}
-    async function removeVideoBlob() {const db = await videoDbReady; return new Promise((resolve, reject) => {const tx = db.transaction('assets', 'readwrite'); tx.objectStore('assets').delete('birthday-video'); tx.oncomplete = resolve; tx.onerror = () => reject(tx.error);});}
+    const videoDbReady = new Promise((resolve, reject) => { const req = indexedDB.open('thenu_silk_video_db', 1); req.onupgradeneeded = () => req.result.createObjectStore('assets'); req.onsuccess = () => resolve(req.result); req.onerror = () => reject(req.error); });
+    async function saveVideoBlob(blob) { const db = await videoDbReady; return new Promise((resolve, reject) => { const tx = db.transaction('assets', 'readwrite'); tx.objectStore('assets').put(blob, 'birthday-video'); tx.oncomplete = resolve; tx.onerror = () => reject(tx.error); }); }
+    async function loadVideoBlob() { const db = await videoDbReady; return new Promise((resolve, reject) => { const req = db.transaction('assets').objectStore('assets').get('birthday-video'); req.onsuccess = () => resolve(req.result || null); req.onerror = () => reject(req.error); }); }
+    async function removeVideoBlob() { const db = await videoDbReady; return new Promise((resolve, reject) => { const tx = db.transaction('assets', 'readwrite'); tx.objectStore('assets').delete('birthday-video'); tx.oncomplete = resolve; tx.onerror = () => reject(tx.error); }); }
     let currentVideoUrl = null;
-    function setVideoBlob(blob) {const player = document.getElementById('our-video-player'); if (currentVideoUrl) URL.revokeObjectURL(currentVideoUrl); currentVideoUrl = URL.createObjectURL(blob); player.src = currentVideoUrl; document.getElementById('remove-video').classList.remove('hidden');}
+    function setVideoBlob(blob) { const player = document.getElementById('our-video-player'); if (currentVideoUrl) URL.revokeObjectURL(currentVideoUrl); currentVideoUrl = URL.createObjectURL(blob); player.src = currentVideoUrl; document.getElementById('remove-video').classList.remove('hidden'); }
     async function initPersonalMedia() {
       loadHerPhotoText();
       try { await loadHerAlbumPhotos(); } catch (e) { console.warn('Album photo storage unavailable:', e); }
       await renderHerPhotoGrid();
       renderCandles();
-      try { const blob = await loadVideoBlob(); if (blob) setVideoBlob(blob); }
-      catch (e) { console.warn('Video storage unavailable', e); }
+      const player = document.getElementById('our-video-player');
+      if (player && LOCAL_MEDIA.video) {
+        player.src = LOCAL_MEDIA.video;
+        player.load();
+      } else {
+        try { const blob = await loadVideoBlob(); if (blob) setVideoBlob(blob); }
+        catch (e) { console.warn('Video storage unavailable', e); }
+      }
     }
 
     function initStarfield() {
@@ -2282,7 +2363,7 @@
         height = canvas.height = window.innerHeight;
       });
 
-      const stars = Array.from({length: 90}, () => ({
+      const stars = Array.from({ length: 90 }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
         radius: Math.random() * 1.6 + 0.4,
@@ -2310,10 +2391,15 @@
     // -------------------------------------------------------------
     // INITIALIZATION ON LOAD
     // -------------------------------------------------------------
-    document.getElementById('our-video-upload')?.addEventListener('change', async e => {const file = e.target.files[0]; if (!file) return; try {await saveVideoBlob(file); setVideoBlob(file);} catch (err) {alert('Could not save this video in browser storage. Try a smaller video.');} });
-    document.getElementById('remove-video')?.addEventListener('click', async () => {await removeVideoBlob(); const player = document.getElementById('our-video-player'); player.removeAttribute('src'); player.load(); if (currentVideoUrl) URL.revokeObjectURL(currentVideoUrl); currentVideoUrl = null; document.getElementById('remove-video').classList.add('hidden');});
+    document.getElementById('our-video-upload')?.addEventListener('change', async e => { const file = e.target.files[0]; if (!file) return; try { await saveVideoBlob(file); setVideoBlob(file); } catch (err) { alert('Could not save this video in browser storage. Try a smaller video.'); } });
+    document.getElementById('remove-video')?.addEventListener('click', async () => { await removeVideoBlob(); const player = document.getElementById('our-video-player'); player.removeAttribute('src'); player.load(); if (currentVideoUrl) URL.revokeObjectURL(currentVideoUrl); currentVideoUrl = null; document.getElementById('remove-video').classList.add('hidden'); });
 
     window.addEventListener('DOMContentLoaded', async () => {
+      const musicSource = document.querySelector('#bg-audio source');
+      if (musicSource && LOCAL_MEDIA.music) {
+        musicSource.src = LOCAL_MEDIA.music;
+        document.getElementById('bg-audio')?.load();
+      }
       try { await loadPersistedState(); }
       catch (e) { console.error('Could not restore saved photos:', e); }
       initStarfield();
@@ -2322,8 +2408,8 @@
       // Restore the couple photo from IndexedDB.
       const promiseImg = document.getElementById('promises-photo');
       if (promiseImg) {
-        const coupleBlob = await getPhotoBlob('couple:promises').catch(() => null);
-        promiseImg.src = coupleBlob ? photoObjectUrl(coupleBlob) : getIllustratedPlaceholderSvg('promises', 'Silk & Thenu');
+        promiseImg.onerror = () => { promiseImg.onerror = null; promiseImg.src = getIllustratedPlaceholderSvg('promises', 'Silk & Thenu'); };
+        promiseImg.src = LOCAL_MEDIA.couplePhoto || getIllustratedPlaceholderSvg('promises', 'Silk & Thenu');
       }
 
       await initPersonalMedia();
